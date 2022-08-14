@@ -79,6 +79,7 @@ void opcontrol() {
     float flywheelrpm = Flywheel1.get_actual_velocity() * 5;
     while (true) {
         op_flywheel();
+        op_indexer();
 //        Card.open("/usd/TuningValues.txt", std::ios_base::app);
 //        Card << Flywheel1.get_power() << "\t" << Flywheel2.get_power() <<std::endl;
 //        Card.close();

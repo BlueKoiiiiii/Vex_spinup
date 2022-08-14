@@ -5,6 +5,13 @@
 #include "main.h"
 bool run_flywheel = false;
 
+void op_indexer() {
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+        Indexer.move_absolute (200, 300);
+        pros::delay (300);
+        Indexer.move_absolute (0, 300);
+    }
+}
 void op_flywheel() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
         run_flywheel = true;

@@ -9,4 +9,5 @@
 #include "main.h"
 
 extern bool run_flywheel;
+void op_indexer();
 void op_flywheel();
