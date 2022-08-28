@@ -23,8 +23,8 @@ void op_flywheel() {
     if (run_flywheel) {
 //        Flywheel1.move_velocity(550);
 //        Flywheel2.move_velocity(550);
-            Flywheel1.move (100);
-            Flywheel2.move (100);
+            Flywheel1.move (110);
+            Flywheel2.move (110);
     }
     else {
         Flywheel1.move (0);
