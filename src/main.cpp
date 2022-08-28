@@ -80,6 +80,9 @@ void opcontrol() {
     while (true) {
         op_flywheel();
         op_indexer();
+        op_drive();
+//        drivemotors();
+//        setDrive();
 //        Card.open("/usd/TuningValues.txt", std::ios_base::app);
 //        Card << Flywheel1.get_power() << "\t" << Flywheel2.get_power() <<std::endl;
 //        Card.close();

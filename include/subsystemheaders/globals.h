@@ -6,3 +6,7 @@ extern pros::Motor Flywheel1;
 extern pros::Motor Flywheel2;
 extern pros::Motor Indexer;
 extern pros::Controller Master;
+extern pros::Motor DRB;
+extern pros::Motor DLB;
+extern pros::Motor DRF;
+extern pros::Motor DLF;

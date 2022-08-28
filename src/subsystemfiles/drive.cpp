@@ -21,14 +21,79 @@ void op_flywheel() {
     }
 
     if (run_flywheel) {
-        Flywheel1.move_velocity(500);
-        Flywheel2.move_velocity(500);
-//            Flywheel1.move (127);
-//            Flywheel2.move (127);
+//        Flywheel1.move_velocity(550);
+//        Flywheel2.move_velocity(550);
+            Flywheel1.move (100);
+            Flywheel2.move (100);
     }
     else {
-        Flywheel1. move_velocity(0);
-        Flywheel2. move_velocity (0);
+        Flywheel1.move (0);
+        Flywheel2.move (0);
+    }
+}
+
+void op_drive() {
+        int power = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        int turn = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+        int Left = power + turn;
+        int Right = power - turn;
+
+        DLF.move(Left);
+        DLB.move(Left);
+        DRF.move(Right);
+        DRB.move(Right);
     }
 
-}
+//void setDrive(int left, int right){
+//    DLF.move_voltage(left);
+//    DRF.move_voltage(right);
+//    DLB.move_voltage(left);
+//    DRB.move_voltage(right);
+//    DLF.move(left);
+//    DRF.move(right);
+//    DLB.move(left);
+//    DRB.move(right);
+//}
+//
+//double Pwr = 0;
+//double Trn = 0;
+//int leftPower = 0;
+//int rightPower = 0;
+//void drivemotors(){
+//    int x = abs(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
+//    int y = abs(Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y));
+//
+//    double LjoyY = y/10.0;
+//    double LjoyX = x/10.0;
+//    if ((y > 5) || (x > 5)) {
+//        if (y > 85) {
+//            Pwr = (12.7 / (1.0 + exp(-(3.0/4.0)*(LjoyY - 6.0)))) * 10.0 - 3.0;
+//        } else if (y > 55 && y <= 85) {
+//            Pwr = (12.7 / (1.0 + exp(-(3.0 / 4.0) * (LjoyY - 6.0)))) * 10.0 - 10.0;
+//        } else {
+//            Pwr = 5*pow((1.0/5.5)*(LjoyY), 3.0) * 12.7;
+//        }
+//        if (x > 85) {
+//            Trn = (12.7 / (1.0 + exp(-(3.0/4.0)*(LjoyX - 6.0)))) * 10.0 - 3.0;
+//        }
+//        else if (x > 55 && x <= 85){
+//            Trn = (12.7 / (1.0 + exp(-(3.0/4.0)*(LjoyX - 6.0)))) * 10.0 - 10.0;
+//        } else {
+//            Trn = 5*pow((1.0/5.5)*(LjoyX), 3.0) * 12.7;
+//        }
+//    }
+//    else {
+//        Pwr = 0;
+//        Trn = 0;
+//    }
+//    if (Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y) < 0){
+//        Pwr = -Pwr;
+//    }
+//    if (Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X) < 0){
+//        Trn = -Trn;
+//    }
+//    leftPower = Pwr + Trn * 0.8;
+//    rightPower = Pwr - Trn * 0.8;
+//    setDrive(leftPower, rightPower);
+//}
+//
