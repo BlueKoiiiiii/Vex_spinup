@@ -4,6 +4,7 @@
 
 #include "main.h"
 bool run_flywheel = false;
+int flypower = 0;
 
 void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
@@ -13,6 +14,14 @@ void op_indexer() {
     }
 }
 void op_flywheel() {
+//    if (flypower > 127) {
+//        flypower = 127;
+//    }
+//
+//    if (flypower < 0) {
+//        flypower = 0;
+//    }
+
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)) {
         run_flywheel = true;
     }
@@ -20,11 +29,31 @@ void op_flywheel() {
         run_flywheel = false;
     }
 
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+        flypower = flypower + 10;
+        pros::delay(100);
+    }
+
+    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
+        flypower = flypower - 10;
+        pros::delay(100);
+    }
+
+//    if (flypower > 127) {
+//        flypower = 127;
+//        pros::delay(50);
+//    }
+//
+//    if (flypower < 0) {
+//        flypower = 0;
+//        pros::delay(50);
+//    }
+
     if (run_flywheel) {
 //        Flywheel1.move_velocity(550);
 //        Flywheel2.move_velocity(550);
-            Flywheel1.move (110);
-            Flywheel2.move (110);
+            Flywheel1.move (flypower);
+            Flywheel2.move (flypower);
     }
     else {
         Flywheel1.move (0);

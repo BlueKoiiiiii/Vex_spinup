@@ -90,6 +90,8 @@ void opcontrol() {
         pros::lcd::print (1, "Motor2 power: %f\n", Flywheel2.get_power());
         pros::lcd::print (2, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
         pros::lcd::print (3, "Motor2 RPM: %f\n", Flywheel2.get_actual_velocity());
+        Master.set_text(0, 0, std::to_string(flypower));
+
 
         pros::delay(20);
     };
