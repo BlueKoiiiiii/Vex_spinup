@@ -28,17 +28,24 @@ void op_flywheel() {
     else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
         run_flywheel = false;
     }
-
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-        flypower = flypower + 10;
-        pros::delay(100);
+//
+    if (Flywheel1.get_actual_velocity()<450 and Flywheel2.get_actual_velocity()<450) {
+        flypower = 12000;
     }
 
-    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
-        flypower = flypower - 10;
-        pros::delay(100);
+    else {
+        flypower = 1378;
     }
-
+//    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+//        flypower = flypower + 10;
+//        pros::delay(100);
+//    }
+//
+//    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
+//        flypower = flypower - 10;
+//        pros::delay(100);
+//    }
+//
 //    if (flypower > 127) {
 //        flypower = 127;
 //        pros::delay(50);
@@ -52,8 +59,8 @@ void op_flywheel() {
     if (run_flywheel) {
 //        Flywheel1.move_velocity(550);
 //        Flywheel2.move_velocity(550);
-            Flywheel1.move (flypower);
-            Flywheel2.move (flypower);
+            Flywheel1.move_voltage (flypower);
+            Flywheel2.move_voltage (flypower);
     }
     else {
         Flywheel1.move (0);

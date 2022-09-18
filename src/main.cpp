@@ -75,7 +75,7 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-//    std::ofstream Card;
+    std::ofstream Card;
     float flywheelrpm = Flywheel1.get_actual_velocity() * 5;
     while (true) {
         op_flywheel();
@@ -83,9 +83,9 @@ void opcontrol() {
         op_drive();
 //        drivemotors();
 //        setDrive();
-//        Card.open("/usd/TuningValues.txt", std::ios_base::app);
-//        Card << Flywheel1.get_power() << "\t" << Flywheel2.get_power() <<std::endl;
-//        Card.close();
+        Card.open("/usd/TuningValues.txt", std::ios_base::app);
+        Card << Flywheel1.get_power() << "\t" << Flywheel1.get_actual_velocity() <<std::endl;
+        Card.close();
         pros::lcd::print (0, "Motor1 power: %f\n", Flywheel1.get_power());
         pros::lcd::print (1, "Motor2 power: %f\n", Flywheel2.get_power());
         pros::lcd::print (2, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
