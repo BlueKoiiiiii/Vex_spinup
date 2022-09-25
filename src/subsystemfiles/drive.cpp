@@ -4,7 +4,11 @@
 
 #include "main.h"
 bool run_flywheel = false;
-int flypower = 0;
+int targetrpm = 0;
+
+while (true) {
+double flypower = pow(flypower, 2) * 0.000003 + 0.0032 * targetrpm - 0.2616;
+}
 
 void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
@@ -29,22 +33,15 @@ void op_flywheel() {
         run_flywheel = false;
     }
 //
-    if (Flywheel1.get_actual_velocity()<450 and Flywheel2.get_actual_velocity()<450) {
-        flypower = 12000;
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+        targetrpm = targetrpm + 50;
+        pros::delay(100);
     }
 
-    else {
-        flypower = 1378;
+    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
+        targetrpm = targetrpm - 50;
+        pros::delay(100);
     }
-//    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-//        flypower = flypower + 10;
-//        pros::delay(100);
-//    }
-//
-//    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
-//        flypower = flypower - 10;
-//        pros::delay(100);
-//    }
 //
 //    if (flypower > 127) {
 //        flypower = 127;
