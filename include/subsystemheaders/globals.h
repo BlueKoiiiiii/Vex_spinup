@@ -10,3 +10,5 @@ extern pros::Motor DRB;
 extern pros::Motor DLB;
 extern pros::Motor DRF;
 extern pros::Motor DLF;
+extern pros::ADIEncoder encoder_right;
+extern pros::ADIEncoder encoder_left;

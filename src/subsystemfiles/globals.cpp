@@ -8,7 +8,8 @@
     pros::Motor DLB(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor DRB(4, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Controller Master (pros::E_CONTROLLER_MASTER);
-
+    pros::ADIEncoder encoder_right(3, 4, true);
+    pros::ADIEncoder encoder_left (1, 2, true);
 //
 //void drivemotors(){
 //    int x = abs(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));
