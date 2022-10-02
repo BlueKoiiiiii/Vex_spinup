@@ -4,17 +4,17 @@
 
 #include "main.h"
 bool run_flywheel = false;
-int targetrpm = 0;
+int targetrpm = 550;
+double flypower = pow(targetrpm, 2) * 0.000003 + 0.0032 * targetrpm - 0.2616;
+//int flypower = 2;
 
-while (true) {
-double flypower = pow(flypower, 2) * 0.000003 + 0.0032 * targetrpm - 0.2616;
-}
+
 
 void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-        Indexer.move_absolute (200, 300);
+        Indexer.move_absolute (300, 300);
         pros::delay (300);
-        Indexer.move_absolute (0, 300);
+        Indexer.move_absolute (10, 300);
     }
 }
 void op_flywheel() {
@@ -33,15 +33,15 @@ void op_flywheel() {
         run_flywheel = false;
     }
 //
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-        targetrpm = targetrpm + 50;
-        pros::delay(100);
-    }
-
-    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
-        targetrpm = targetrpm - 50;
-        pros::delay(100);
-    }
+//    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+//        targetrpm = targetrpm + 50;
+//        pros::delay(100);
+//    }
+//
+//    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
+//        targetrpm = targetrpm - 50;
+//        pros::delay(100);
+//    }
 //
 //    if (flypower > 127) {
 //        flypower = 127;
@@ -56,8 +56,14 @@ void op_flywheel() {
     if (run_flywheel) {
 //        Flywheel1.move_velocity(550);
 //        Flywheel2.move_velocity(550);
-            Flywheel1.move_voltage (flypower);
-            Flywheel2.move_voltage (flypower);
+        if(Flywheel1.get_actual_velocity()>500) {
+            Flywheel1.move_voltage(flypower * 1000);
+            Flywheel2.move_voltage(flypower * 1000);
+        }
+            else {
+            Flywheel1.move_voltage (12000);
+            Flywheel2.move_voltage (12000);
+            }
     }
     else {
         Flywheel1.move (0);

@@ -91,7 +91,6 @@ void opcontrol() {
         pros::lcd::print (2, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
         pros::lcd::print (3, "Motor2 RPM: %f\n", Flywheel2.get_actual_velocity());
         Master.set_text(0, 0, std::to_string(flypower));
-        Master.set_text(0, 2, std::to_string(flypower));
 
 
         pros::delay(20);
