@@ -12,7 +12,7 @@ void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
         Indexer.move_absolute (200, 300);
         pros::delay (300);
-        Indexer.move_absolute (20, 300);
+        Indexer.move_absolute (10, 300);
     }
 }
 void op_flywheel() {

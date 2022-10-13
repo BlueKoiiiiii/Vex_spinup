@@ -10,6 +10,7 @@
     pros::Controller Master (pros::E_CONTROLLER_MASTER);
     pros::ADIEncoder encoder_right(3, 4, true);
     pros::ADIEncoder encoder_left (1, 2, true);
+    pros::ADIEncoder encoder_rear (5, 6, false);
 //
 //void drivemotors(){
 //    int x = abs(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));

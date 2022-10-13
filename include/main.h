@@ -79,6 +79,7 @@ void opcontrol(void);
 
 #include "subsystemheaders/globals.h"
 #include "subsystemheaders/drive.h"
+#include "subsystemheaders/autonomous.h"
 #include <fstream>
 #endif
 
