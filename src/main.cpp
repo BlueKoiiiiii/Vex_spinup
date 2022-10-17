@@ -25,8 +25,7 @@ void on_center_button() {
 void initialize() {
     pros::lcd::initialize();
     pros::lcd::register_btn1_cb(on_center_button);
-
-
+    autonomous();
     pros::delay(500);
 }
 
@@ -59,7 +58,12 @@ void competition_initialize() {}
  * will be stopped. Re-enabling the robot will restart the task, not re-start it
  * from where it left off.
  */
-void autonomous() {}
+void autonomous() {
+
+        pidforward(2000);
+
+
+}
 
 /**
  * Runs the operator control code. This function will be started in its own task
@@ -75,26 +79,41 @@ void autonomous() {}
  * task, not resume it from where it left off.
  */
 void opcontrol() {
-    std::ofstream Card;
-    float flywheelrpm = Flywheel1.get_actual_velocity() * 5;
-    while (true) {
-        op_flywheel();
-        op_indexer();
+    while (true){
+        pros::lcd::set_text(4, std::to_string(encoder_right.get_value()));
+        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
+        pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
+        pros::lcd::set_text(7, "hi!");
         op_drive();
-//        drivemotors();
-//        setDrive();
-        Card.open("/usd/TuningValues.txt", std::ios_base::app);
-        Card << Flywheel1.get_power() << "\t" << Flywheel1.get_actual_velocity() <<std::endl;
-        Card.close();
-        pros::lcd::print (0, "Motor1 power: %f\n", Flywheel1.get_power());
-        pros::lcd::print (1, "Motor2 power: %f\n", Flywheel2.get_power());
-        pros::lcd::print (2, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
-        pros::lcd::print (3, "Motor2 RPM: %f\n", Flywheel2.get_actual_velocity());
-        pros::lcd::print (3, "Motor2 RPM: %f\n", Flywheel2.get_actual_velocity());
+        pros::delay(50);
+
+
+    }
+
+}
+//    std::ofstream Card;
+//    float flywheelrpm = Flywheel1.get_actual_velocity() * 5;
+//    while (true) {
+//        op_flywheel();
+//        op_indexer();
+//        op_drive();
+////        drivemotors();
+////        setDrive();
+//        Card.open("/usd/TuningValues.txt", std::ios_base::app);
+//        Card << Flywheel1.get_power() << "\t" << Flywheel1.get_actual_velocity() <<std::endl;
+//        Card.close();
+//        pros::lcd::print (0, "Motor1 power: %f\n", Flywheel1.get_power());
+//        pros::lcd::print (1, "Motor2 power: %f\n", Flywheel2.get_power());
+//        pros::lcd::print (2, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
+//        pros::lcd::print (3, "Motor2 RPM: %f\n", Flywheel2.get_actual_velocity());
+//        pros::lcd::print (3, "Motor2 RPM: %f\n", Flywheel2.get_actual_velocity());
+////        pros::lcd::set_text(6, std::to_string(currentFlywheelVoltage));
+////        pros::lcd::print (4, "global position x: %f\n", globalposx);
 //        pros::lcd::set_text(4, std::to_string(encoder_right.get_value()));
 //        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
-
-
-        pros::delay(20);
-    };
-};
+//        pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
+//
+//
+//        pros::delay(50);
+//    };
+//};

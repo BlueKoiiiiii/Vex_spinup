@@ -4,7 +4,7 @@
 
 #include "main.h"
 bool run_flywheel = false;
-int targetrpm = 550;
+//int targetrpm = 550;
 //double flypower = pow(targetrpm, 2) * 0.000003 + 0.0032 * targetrpm - 0.2616;
 
 
@@ -52,18 +52,60 @@ void op_flywheel() {
 //    }
 
     if (run_flywheel) {
-        float currentvelocity = Flywheel1.get_actual_velocity();
-        float error = 600 - currentvelocity;
-        float proportional = 0.1;
-        float integral = 0.03;
-        float proportionalerror = error * proportional;
-        float integralerror = error * integral;
-        float actualerror = proportionalerror + integralerror;
-        float flypower = 12000 * actualerror;
+        //Constants//
+        float kp = 0.07;
+        float ki = 0;
+        float kd = 0.11;
+
+//PID Variables Here//
+        double currentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity() / 2;
+        int error = 600 - currentVelocity;
+        int lastError = 0;
+        int totalError = 0;
+        int integralActiveZone = 15;
+        int currentFlywheelVoltage = 1000;
+        int onTargetCount = 0;
+        float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+
+//Temp Variable//
+        int deltaTime = 0;
+
+                if (error == 0)
+                {
+                    lastError = 0;
+                }
+
+                if (abs(error) < integralActiveZone && error != 0)
+                {
+                    totalError += error;
+                }
+                else
+                {
+                    totalError = 0;
+                }
+
+                finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+                currentFlywheelVoltage = currentFlywheelVoltage + finalAdjustment;
+
+                Flywheel1.move(currentFlywheelVoltage);
+                Flywheel2.move(currentFlywheelVoltage);
+                lastError = error;
+                pros::delay(50);
+            }
+//        float currentvelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
+//        float actualcurrentvelocity = currentvelocity/2;
+//        float error = 500 - actualcurrentvelocity;
+//        float proportional = 0.07;
+//        float integral = 0.03;
+//        float proportionalerror = error * proportional;
+//        float integralerror = error * integral;
+//        float actualerror = proportionalerror;
+//        float actualerror = proportionalerror + integralerror;
+//        float flypower = 12000 * actualerror;
 //        int flypower = 12000;
-        Flywheel1.move_voltage(flypower);
-        Flywheel2.move_voltage(flypower);
-        pros::lcd::set_text(6, std::to_string(flypower));
+//        Flywheel1.move_voltage(flypower);
+//        Flywheel2.move_voltage(flypower);
+//        pros::lcd::set_text(6, std::to_string(flypower));
 //        Flywheel1.move_velocity(550);
 //        Flywheel2.move_velocity(550);
 
@@ -75,7 +117,7 @@ void op_flywheel() {
 //            Flywheel1.move_voltage (12000);
 //            Flywheel2.move_voltage (12000);
 //            }
-    }
+
     else {
         Flywheel1.move (0);
         Flywheel2.move (0);
@@ -88,10 +130,10 @@ void op_drive() {
         int Left = power + turn;
         int Right = power - turn;
 
-        DLF.move(Left);
-        DLB.move(Left);
-        DRF.move(Right);
-        DRB.move(Right);
+        DLF.move(Left*0.3);
+        DLB.move(Left*0.3);
+        DRF.move(Right*0.3);
+        DRB.move(Right*0.3);
     }
 
 //void setDrive(int left, int right){

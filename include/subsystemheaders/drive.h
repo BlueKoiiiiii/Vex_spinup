@@ -13,3 +13,4 @@ void op_indexer();
 void op_flywheel();
 void op_drive();
 extern double flypower;
+extern int currentFlywheelVoltage;
