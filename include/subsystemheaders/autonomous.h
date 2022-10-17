@@ -4,5 +4,6 @@
 extern double globalposx;
 void pidforward(int target);
 void sensors_reset();
+extern float totalerror;
 extern int target;
 #endif //NEW_AUTONOMOUS_H
