@@ -60,9 +60,11 @@ void competition_initialize() {}
  */
 void autonomous() {
 
-        pidforward(2000);
-
-
+//        pidforward(2000);
+sensors_reset();
+pidturn(90);
+sensors_reset();
+pidturn(90);
 }
 
 /**
@@ -84,6 +86,7 @@ void opcontrol() {
         pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
         pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
         pros::lcd::set_text(7, "hi!");
+//        test_turn();
         op_drive();
         pros::delay(50);
 

@@ -6,4 +6,6 @@ void pidforward(int target);
 void sensors_reset();
 extern float totalerror;
 extern int target;
+void pidturn(int angle);
+void infodisplay();
 #endif //NEW_AUTONOMOUS_H

@@ -136,6 +136,22 @@ void op_drive() {
         DRB.move(Right*0.3);
     }
 
+    void test_turn() {
+    bool pressed = false;
+        if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+            pressed = true;
+        }
+        if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
+            pressed = false;
+        }
+
+        if (pressed) {
+            DLF.move(50);
+            DLB.move(50);
+            DRF.move(-50);
+            DRB.move(-50);
+        }
+}
 //void setDrive(int left, int right){
 //    DLF.move_voltage(left);
 //    DRF.move_voltage(right);
