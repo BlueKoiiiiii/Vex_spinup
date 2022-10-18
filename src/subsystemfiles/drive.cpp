@@ -75,7 +75,7 @@ void op_flywheel() {
                     lastError = 0;
                 }
 
-                if (abs(error) < integralActiveZone && error != 0)
+                if (abs(error) < integralActiveZone and error != 0)
                 {
                     totalError += error;
                 }

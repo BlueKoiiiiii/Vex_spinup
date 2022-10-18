@@ -61,10 +61,11 @@ void competition_initialize() {}
 void autonomous() {
 
 //        pidforward(2000);
+//sensors_reset();
+//pidturn(90);
 sensors_reset();
-pidturn(90);
-sensors_reset();
-pidturn(90);
+pros::delay(10);
+pidturn(-90);
 }
 
 /**
