@@ -59,13 +59,12 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-
-//        pidforward(2000);
+//    pidforward(20);
 //sensors_reset();
 //pidturn(90);
-sensors_reset();
-pros::delay(10);
-pidturn(-90);
+//sensors_reset();
+//pros::delay(10);
+//pidturn(-90);
 }
 
 /**
@@ -83,12 +82,16 @@ pidturn(-90);
  */
 void opcontrol() {
     while (true){
-        pros::lcd::set_text(4, std::to_string(encoder_right.get_value()));
-        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
-        pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
-        pros::lcd::set_text(7, "hi!");
+        pros::lcd::print (3, "Motor1 power: %f\n", Flywheel1.get_power());
+        pros::lcd::print (4, "Motor2 power: %f\n", Flywheel2.get_power());
+        pros::lcd::print (5, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
+//        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
+//        pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
+//        pros::lcd::set_text(7, "hi!");
 //        test_turn();
-        op_drive();
+//            Flywheel1.move_velocity(600);
+//            Flywheel2.move_velocity(600);
+        op_flywheel(600);
         pros::delay(50);
 
 

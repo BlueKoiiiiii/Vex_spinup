@@ -15,7 +15,8 @@ void op_indexer() {
         Indexer.move_absolute (10, 300);
     }
 }
-void op_flywheel() {
+
+void op_flywheel(int target) {
 //    if (flypower > 127) {
 //        flypower = 127;
 //    }
@@ -53,17 +54,17 @@ void op_flywheel() {
 
     if (run_flywheel) {
         //Constants//
-        float kp = 0.07;
-        float ki = 0;
-        float kd = 0.11;
-
+        float kp = 0.55;
+        float ki = 0.09;
+        float kd = 0.085;
 //PID Variables Here//
-        double currentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity() / 2;
-        int error = 600 - currentVelocity;
+        double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
+        double currentVelocity = doublecurrentVelocity/2;
+        int error = target - currentVelocity;
         int lastError = 0;
         int totalError = 0;
-        int integralActiveZone = 15;
-        int currentFlywheelVoltage = 1000;
+        int integralActiveZone = 60;
+        int currentFlywheelVoltage = 75;
         int onTargetCount = 0;
         float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
 
@@ -73,6 +74,9 @@ void op_flywheel() {
                 if (error == 0)
                 {
                     lastError = 0;
+                }
+                else{
+                    lastError = error;
                 }
 
                 if (abs(error) < integralActiveZone and error != 0)
@@ -87,10 +91,16 @@ void op_flywheel() {
                 finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
                 currentFlywheelVoltage = currentFlywheelVoltage + finalAdjustment;
 
+        pros::lcd::set_text(1, std::to_string(error));
+        pros::lcd::set_text(2, std::to_string(totalerror));
+
                 Flywheel1.move(currentFlywheelVoltage);
                 Flywheel2.move(currentFlywheelVoltage);
-                lastError = error;
-                pros::delay(50);
+                pros::delay(5);
+        std::ofstream Card;
+        Card.open("/usd/TuningValues.txt", std::ios_base::app);
+        Card << error << "\t" << finalAdjustment << "\t" << currentFlywheelVoltage <<std::endl;
+        Card.close();
             }
 //        float currentvelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
 //        float actualcurrentvelocity = currentvelocity/2;

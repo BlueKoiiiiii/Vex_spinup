@@ -9,8 +9,11 @@ void sensors_reset(){
     encoder_left.reset();
     encoder_right.reset();
 }
-void pidforward(int target) {
+void pidforward(int inches) {
+    int halftarget = inches/0.024;
+    int target = halftarget *2;
     while (true) {
+        pros::lcd::set_text(6, std::to_string(target));
         double leftcounts = encoder_right.get_value();
         double rightcounts = encoder_left.get_value();
         double globalposx = leftcounts + rightcounts;
@@ -18,7 +21,13 @@ void pidforward(int target) {
 //    double globalpos = globalposx + encoderGet(encoder_rear);
         float P = 0.05;
         float I = 0.005;
-        totalerror += error;
+        int integralactivezone = 75;
+        if (error < integralactivezone and error != 0){
+            totalerror = totalerror + error;
+        }
+        else{
+            totalerror = 0;
+        }
         float pid = (P * error) + (I * totalerror);
 
         float gain = pid;
