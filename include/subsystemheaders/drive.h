@@ -10,7 +10,7 @@
 
 extern bool run_flywheel;
 void op_indexer();
-void op_flywheel(int target);
+void op_flywheel(int low_target, int fast_target);
 void op_drive();
 extern double flypower;
 extern int currentFlywheelVoltage;

@@ -4,19 +4,21 @@
 
 #include "main.h"
 bool run_flywheel = false;
+bool run_fast = false;
+bool driveforward = true;
 //int targetrpm = 550;
 //double flypower = pow(targetrpm, 2) * 0.000003 + 0.0032 * targetrpm - 0.2616;
 
 
 void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
-        Indexer.move_absolute (200, 300);
-        pros::delay (300);
+        Indexer.move_absolute (100, 300);
+        pros::delay (100);
         Indexer.move_absolute (10, 300);
     }
 }
 
-void op_flywheel(int target) {
+void op_flywheel(int low_target, int fast_target) {
 //    if (flypower > 127) {
 //        flypower = 127;
 //    }
@@ -30,6 +32,13 @@ void op_flywheel(int target) {
     }
     else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)) {
         run_flywheel = false;
+    }
+
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L1)){
+        run_fast = true;
+    }
+    else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_L2)){
+        run_fast = false;
     }
 //
 //    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
@@ -52,7 +61,7 @@ void op_flywheel(int target) {
 //        pros::delay(50);
 //    }
 
-    if (run_flywheel) {
+    if (run_flywheel and run_fast) {
         //Constants//
         float kp = 0.55;
         float ki = 0.09;
@@ -60,11 +69,11 @@ void op_flywheel(int target) {
 //PID Variables Here//
         double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
         double currentVelocity = doublecurrentVelocity/2;
-        int error = target - currentVelocity;
+        int error = fast_target - currentVelocity;
         int lastError = 0;
         int totalError = 0;
         int integralActiveZone = 60;
-        int currentFlywheelVoltage = 75;
+        int currentFlywheelVoltage = 20;
         int onTargetCount = 0;
         float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
 
@@ -102,6 +111,57 @@ void op_flywheel(int target) {
         Card << error << "\t" << finalAdjustment << "\t" << currentFlywheelVoltage <<std::endl;
         Card.close();
             }
+
+    if (run_flywheel) {
+        //Constants//
+        float kp = 0.30;
+        float ki = 0.03;
+        float kd = 0.05;
+//PID Variables Here//
+        double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
+        double currentVelocity = doublecurrentVelocity/2;
+        int error = low_target - currentVelocity;
+        int lastError = 0;
+        int totalError = 0;
+        int integralActiveZone = 60;
+        int currentFlywheelVoltage = 20;
+        int onTargetCount = 0;
+        float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+
+//Temp Variable//
+        int deltaTime = 0;
+
+        if (error == 0)
+        {
+            lastError = 0;
+        }
+        else{
+            lastError = error;
+        }
+
+        if (abs(error) < integralActiveZone and error != 0)
+        {
+            totalError += error;
+        }
+        else
+        {
+            totalError = 0;
+        }
+
+        finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+        currentFlywheelVoltage = currentFlywheelVoltage + finalAdjustment;
+
+        pros::lcd::set_text(1, std::to_string(error));
+        pros::lcd::set_text(2, std::to_string(totalerror));
+
+        Flywheel1.move(currentFlywheelVoltage);
+        Flywheel2.move(currentFlywheelVoltage);
+        pros::delay(5);
+        std::ofstream Card;
+        Card.open("/usd/TuningValues.txt", std::ios_base::app);
+        Card << error << "\t" << finalAdjustment << "\t" << currentFlywheelVoltage <<std::endl;
+        Card.close();
+    }
 //        float currentvelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
 //        float actualcurrentvelocity = currentvelocity/2;
 //        float error = 500 - actualcurrentvelocity;
@@ -135,15 +195,37 @@ void op_flywheel(int target) {
 }
 
 void op_drive() {
+
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+        driveforward = true;
+    }
+
+   else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
+        driveforward = false;
+    }
+    if (driveforward) {
         int power = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int turn = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
         int Left = power + turn;
         int Right = power - turn;
 
-        DLF.move(Left*0.3);
-        DLB.move(Left*0.3);
-        DRF.move(Right*0.3);
-        DRB.move(Right*0.3);
+        DLF.move(Left * 0.7);
+        DLB.move(Left * 0.7);
+        DRF.move(Right * 0.7);
+        DRB.move(Right * 0.7);
+    }
+
+    else {
+        int power = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+        int turn = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
+        int Left = power + turn * -1;
+        int Right = power - turn * -1;
+
+        DLF.move(Left * 0.3);
+        DLB.move(Left * 0.3);
+        DRF.move(Right * 0.3);
+        DRB.move(Right * 0.3);
+    }
     }
 
     void test_turn() {

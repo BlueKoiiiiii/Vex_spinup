@@ -91,7 +91,9 @@ void opcontrol() {
 //        test_turn();
 //            Flywheel1.move_velocity(600);
 //            Flywheel2.move_velocity(600);
-        op_flywheel(600);
+        op_flywheel(400, 600);
+        op_indexer();
+        op_drive();
         pros::delay(50);
 
 
