@@ -11,7 +11,7 @@ bool driveforward = true;
 
 
 void op_indexer() {
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)) {
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
         Indexer.move_absolute (100, 300);
         pros::delay (100);
         Indexer.move_absolute (10, 300);
@@ -63,58 +63,58 @@ void op_flywheel(int low_target, int fast_target) {
 
     if (run_flywheel and run_fast) {
         //Constants//
-        float kp = 0.55;
-        float ki = 0.09;
-        float kd = 0.085;
+        float kp = 0.5;
+        float ki = 0.07;
+        float kd = 0.08;
 //PID Variables Here//
         double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
         double currentVelocity = doublecurrentVelocity/2;
-        int error = fast_target - currentVelocity;
-        int lastError = 0;
-        int totalError = 0;
-        int integralActiveZone = 60;
-        int currentFlywheelVoltage = 20;
+        int fasterror = fast_target - currentVelocity;
+        int lastfastError = 0;
+        int totalfastError = 0;
+        int integralfastActiveZone = 70;
+        int currentfastFlywheelVoltage = 30;
         int onTargetCount = 0;
-        float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+        float finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
 
 //Temp Variable//
         int deltaTime = 0;
 
-                if (error == 0)
+                if (fasterror == 0)
                 {
-                    lastError = 0;
+                    lastfastError = 0;
                 }
                 else{
-                    lastError = error;
+                    lastfastError = fasterror;
                 }
 
-                if (abs(error) < integralActiveZone and error != 0)
+                if (abs(fasterror) < integralfastActiveZone and fasterror != 0)
                 {
-                    totalError += error;
+                    totalfastError += fasterror;
                 }
                 else
                 {
-                    totalError = 0;
+                    totalfastError = 0;
                 }
 
-                finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
-                currentFlywheelVoltage = currentFlywheelVoltage + finalAdjustment;
+                finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
+                currentfastFlywheelVoltage = currentfastFlywheelVoltage + finalfastAdjustment;
+        pros::lcd::set_text(8, "Fast");
+        pros::lcd::set_text(1, std::to_string(fasterror));
+        pros::lcd::set_text(2, std::to_string(totalfastError));
 
-        pros::lcd::set_text(1, std::to_string(error));
-        pros::lcd::set_text(2, std::to_string(totalerror));
-
-                Flywheel1.move(currentFlywheelVoltage);
-                Flywheel2.move(currentFlywheelVoltage);
+                Flywheel1.move(currentfastFlywheelVoltage);
+                Flywheel2.move(currentfastFlywheelVoltage);
                 pros::delay(5);
         std::ofstream Card;
         Card.open("/usd/TuningValues.txt", std::ios_base::app);
-        Card << error << "\t" << finalAdjustment << "\t" << currentFlywheelVoltage <<std::endl;
+        Card << fasterror << "\t" << finalfastAdjustment << "\t" << currentfastFlywheelVoltage <<std::endl;
         Card.close();
             }
 
-    if (run_flywheel) {
+    else if (run_flywheel and not run_fast) {
         //Constants//
-        float kp = 0.30;
+        float kp = 0.4;
         float ki = 0.03;
         float kd = 0.05;
 //PID Variables Here//
@@ -123,11 +123,11 @@ void op_flywheel(int low_target, int fast_target) {
         int error = low_target - currentVelocity;
         int lastError = 0;
         int totalError = 0;
-        int integralActiveZone = 60;
+        int integralActiveZone = 70;
         int currentFlywheelVoltage = 20;
         int onTargetCount = 0;
         float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
-
+        pros::lcd::set_text(8, "Slow");
 //Temp Variable//
         int deltaTime = 0;
 
@@ -196,12 +196,12 @@ void op_flywheel(int low_target, int fast_target) {
 
 void op_drive() {
 
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-        driveforward = true;
+    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){
+        driveforward = false;
     }
 
-   else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN)){
-        driveforward = false;
+   else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+        driveforward = true;
     }
     if (driveforward) {
         int power = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
@@ -216,10 +216,10 @@ void op_drive() {
     }
 
     else {
-        int power = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
+//        int power = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y);
         int turn = Master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X);
-        int Left = power + turn * -1;
-        int Right = power - turn * -1;
+        int Left = turn;
+        int Right = -turn;
 
         DLF.move(Left * 0.3);
         DLB.move(Left * 0.3);

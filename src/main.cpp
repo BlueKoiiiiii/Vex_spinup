@@ -86,7 +86,8 @@ void opcontrol() {
         pros::lcd::print (4, "Motor2 power: %f\n", Flywheel2.get_power());
         pros::lcd::print (5, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
 //        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
-//        pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
+//        pros::lcd::set_text(
+//        6, std::to_string(encoder_rear.get_value()));
 //        pros::lcd::set_text(7, "hi!");
 //        test_turn();
 //            Flywheel1.move_velocity(600);
