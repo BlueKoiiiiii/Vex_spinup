@@ -1,6 +1,7 @@
 extends Node
 
-onready var list = get_node("ItemList")
+onready var list_not_done = get_node("ToDoList")
+onready var list_done = get_node("FinishedList")
 onready var new_thing = get_node("TextEdit")
 onready var empty_box = preload("res://assets/Envrioment/checks1.png")
 onready var checked_box = preload("res://assets/Envrioment/checks2.png")
@@ -24,7 +25,12 @@ func _ready():
 
 
 func _on_ItemList_item_activated(index):
-	list.add_item(list.get_item_text(index), checked_box, false)
+	if(list_not_done.get_item_text(index) != "Make The Todo List"):
+		list_done.add_item(list_not_done.get_item_text(index), checked_box, false)
+		list_not_done.remove_item(index)
+	
+	# Bubble sort lmao, but true false
+	#if()
 #	list.add_icon_item(checked_box,false)
 
 
@@ -35,6 +41,6 @@ func _on_ItemList_item_selected(index):
 func _on_Button_pressed():
 	print("Hello world")
 	var new_item = new_thing.get_line(0)
-	list.add_item(new_item, empty_box, true)
-	
+	list_not_done.add_item(new_item, empty_box, true)
+	new_thing.text = ""
 	
