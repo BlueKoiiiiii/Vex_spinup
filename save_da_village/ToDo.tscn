@@ -39,8 +39,10 @@ margin_right = 125.0
 margin_bottom = 84.0
 text = "Add To List"
 
+[node name="timers" type="Node" parent="."]
+
 [connection signal="item_activated" from="ToDoList" to="." method="_on_ItemList_item_activated"]
 [connection signal="item_selected" from="ToDoList" to="." method="_on_ItemList_item_selected"]
-[connection signal="item_activated" from="FinishedList" to="." method="_on_ItemList_item_activated"]
-[connection signal="item_selected" from="FinishedList" to="." method="_on_ItemList_item_selected"]
+[connection signal="item_activated" from="FinishedList" to="." method="_on_ItemList_item_activated2"]
+[connection signal="item_selected" from="FinishedList" to="." method="_on_ItemList_item_selected2"]
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]
