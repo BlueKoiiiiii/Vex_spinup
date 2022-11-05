@@ -19,6 +19,7 @@ var selected = Vector2(0, 0)
 # Node references
 var tileMap
 var contextMenu
+var lable
 
 # Inventory
 var Inventory = {
@@ -45,6 +46,7 @@ func _ready():
 	
 	tileMap = get_node("/root/Node/TileMap")
 	contextMenu = get_node("/root/Node/ContextMenu")
+	lable = get_node("/root/Node/Lable")
 	print(tileMap.cell_tile_origin)
 	# Populate sensorGrid with GridInteracts
 	for i in range(X_SIZE/GRID_BLOCK_SIZE + 1):
@@ -117,4 +119,5 @@ func _on_HarvestButton_pressed():
 
 func _on_Node__add_points(points):
 	Inventory["points"] += points
-	print("HELLO")
+	print("Hello world")
+	lable.text = "You got " + points + " points"
