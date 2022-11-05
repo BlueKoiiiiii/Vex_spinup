@@ -44,6 +44,6 @@ script = ExtResource( 2 )
 position = Vector2( -1, 2.5 )
 shape = SubResource( 6 )
 
-[node name="Villager_0" type="AnimatedSprite" parent="."]
+[node name="Villager_0" type="AnimatedSprite" parent="Villagers"]
 frames = SubResource( 5 )
 animation = "New Anim"
