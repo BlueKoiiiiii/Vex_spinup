@@ -38,6 +38,7 @@ animations = [ {
 [node name="Node" type="Node"]
 
 [node name="Villagers" type="KinematicBody2D" parent="."]
+position = Vector2( 500, 440 )
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Villagers"]
