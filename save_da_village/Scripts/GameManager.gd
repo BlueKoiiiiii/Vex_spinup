@@ -27,7 +27,9 @@ func _ready():
 			add_child(newNode)
 			sensorGrid[i].append(newNode)
 
-
+func _grid_pressed(posx, posy):
+	print(posx, ", ", posy)
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
