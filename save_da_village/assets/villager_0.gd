@@ -16,3 +16,4 @@ func _physics_process(delta):
 	motion.x += move
 
 	move_and_slide(motion * speed)
+	
