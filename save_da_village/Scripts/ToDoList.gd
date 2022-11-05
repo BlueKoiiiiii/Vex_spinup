@@ -6,7 +6,7 @@ onready var new_thing = get_node("TextEdit")
 onready var timers_master = get_node("timers")
 onready var empty_box = preload("res://assets/Envrioment/checks1.png")
 onready var checked_box = preload("res://assets/Envrioment/checks2.png")
-
+onready var Points = get_node("/root/Node/InventoryRect/Points")
 var identifier_arr 
 var identifier_num = int(0)
 
@@ -15,9 +15,17 @@ func _ready():
 	pass # Replace with function body.
 
 func _on_ItemList_item_activated(index):
+	var data = list_not_done.get_item_metadata(index-1)
+	print(data)
+	if is_instance_valid(data[0]):
+		# Add points here
+		data[0].queue_free()
+	else:
+		pass
 	if(list_not_done.get_item_text(index) != "Make The Todo List"):
 		list_done.add_item(list_not_done.get_item_text(index), checked_box, false)
 		list_not_done.remove_item(index)
+	
 	
 	# Bubble sort lmao, but true false
 	#if()
@@ -35,14 +43,20 @@ func _on_Button_pressed():
 	var times = text[1].split(":")
 	list_not_done.add_item(text[0], empty_box, true)
 	
+
+	
 	var timer := Timer.new()
 	timers_master.add_child(timer)
 	timer.wait_time = (int(times[0])*60*60 + int(times[1])*60 + int(times[2]))
 	timer.one_shot = true
 	timer.start()
 	
+	
+	var q = int(0)
 	for i in get_node("timers").get_children():
 		i.connect("timeout",self,"_on_timer_timeout",[i])
+		list_not_done.set_item_metadata(q, [i])
+		q += 1
 	
 	#for b in get_node("Node")get_children():
 	#	timer.connect("timeout", self, "_on_timer_timeout",[b])
@@ -54,7 +68,7 @@ func _on_Button_pressed():
 	
 func _on_timer_timeout(which):
 	print("feck" + which.get_name())
-	remove_child(which)
+#	remove_child(which)
 	which.queue_free()
 
 func _on_ItemList_item_activated2():

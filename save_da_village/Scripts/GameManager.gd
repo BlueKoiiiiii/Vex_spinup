@@ -27,7 +27,7 @@ var Inventory = {
 	"population": 1,
 	"gold"      : 100,
 	"wood"      : 20,
-	"stone"     : 20
+	"stone"     : 205
 }
 
 var menuItems
