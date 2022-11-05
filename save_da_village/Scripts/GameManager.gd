@@ -2,8 +2,6 @@ extends Node
 
 
 # Declare member variables here. Examples:
-var initialized = false
-
 const X_SIZE = 992
 const Y_SIZE = 576
 
@@ -16,6 +14,7 @@ const MENU_BUTTON_HEIGHT = 100
 # Game State Variables
 var sensorGrid = []
 var tileGrid = []
+var selected = Vector2(0, 0)
 
 # Node references
 var tileMap
@@ -27,8 +26,9 @@ var Inventory = {
 	"population": 1,
 	"gold"      : 100,
 	"wood"      : 20,
-	"stone"     : 205
-}
+	"stone"     : 20
+} # TODO: ADD FOOD
+
 
 var menuItems
 
@@ -59,7 +59,7 @@ func _ready():
 			newNode.posx = i
 			newNode.posy = j
 			newNode.set_name("GRID " + str(i) + ", " + str(j))
-			newNode._set_variables((tileGrid[i][j] in [6, 7, 11]), true, (tileGrid[i][j] in [6, 7, 11]), 1 + 4*int(tileGrid[i][j] in [15, 16, 19]) + 2*int(tileGrid[i][j] in [17, 18, 20, 21]), tileGrid[i][j], [], [])
+			newNode._set_variables((tileGrid[i][j] in [6, 7, 11]), true, (tileGrid[i][j] in [6, 7, 11]), 1 + 4*int(tileGrid[i][j] in [15, 16, 19]) + 2*int(tileGrid[i][j] in [17, 18, 20, 21]), tileGrid[i][j], [["stone", 5*int(tileGrid[i][j] != -1), 1]], [])
 			add_child(newNode)
 			sensorGrid[i].append(newNode)
 			
@@ -67,12 +67,11 @@ func _ready():
 	contextMenu.visible = false
 	Inventory["points"] += 1
 	# TODO: PREPROCESS THE CELLS IN TILEGRID TO SHOW WHAT RESOURCES, ETC THEY HAVE
-	
-	initialized = true
 
 func _grid_pressed(posx, posy):
 	print(sensorGrid[posx][posy].difficultyMultiplier)
 	print(posx, ", ", posy)
+	selected = Vector2(posx, posy)
 	contextMenu.visible = true
 	contextMenu.set_position(Vector2(min(get_viewport().get_mouse_position().x, X_SIZE - MENU_BUTTON_WIDTH), min(get_viewport().get_mouse_position().y, Y_SIZE - MENU_BUTTON_HEIGHT)))
 	pass
@@ -84,4 +83,28 @@ func _process(delta):
 
 
 func _on_CancelButton_pressed():
+	contextMenu.visible = false
+
+
+func _on_BuildButton_pressed():
+	pass
+
+
+func _on_HarvestButton_pressed():
+	# TODO: PICK RANDOM ITEM FROM SELECTED RESOURCE YIELDS
+	var yield_r = sensorGrid[selected.x][selected.y].resources[0]
+	if(sensorGrid[selected.x][selected.y].harvestable == false):
+		print("Cannot Harvest!")
+		return
+	if(yield_r == null):
+		return
+	if(Inventory["points"] < yield_r[2]):
+		print("Not enough points!")
+		return
+	Inventory["points"] -= yield_r[2]
+	Inventory[yield_r[0]] += yield_r[1]
+	sensorGrid[selected.x][selected.y].health -= 1
+	if(sensorGrid[selected.x][selected.y].health == 0):
+		print("Destroy Block!") #to do: destroy block!
+	
 	contextMenu.visible = false

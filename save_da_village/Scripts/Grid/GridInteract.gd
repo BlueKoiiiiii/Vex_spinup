@@ -15,9 +15,10 @@ var buildable  : bool
 var surveyable : bool
 var harvestable: bool
 var difficultyMultiplier : int 
+var health = 3 # Takes three hits to kill
 
 var blockType : int 		# TODO: CREATE ENUM FOR BLOCK TYPES
-var resources : Array 		# ALSO CREATE AN ENUM HERE
+var resources : Array 		# Each element is of the form ["RESOURCE_NAME", numberOfResources, baseCostInPoints]
 var resourceYields : Array	# EXAMPLE: (RESOURCE_ID, 3600 seconds)
 
 
