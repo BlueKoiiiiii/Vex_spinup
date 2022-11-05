@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://Scripts/Grid/GridInteract.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/Envrioment/ground.png" type="Texture" id=4]
 [ext_resource path="res://assets/villager0.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ToDo.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/label_colour.gd" type="Script" id=7]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
@@ -544,6 +545,7 @@ margin_left = 2.0
 margin_top = 158.0
 margin_right = 197.0
 margin_bottom = 202.0
+script = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false

@@ -26,7 +26,7 @@ func _on_ItemList_item_activated(index):
 		list_not_done.remove_item(index)
 		#Only add points if the timer exists
 		if is_instance_valid(data[0]):
-			emit_signal("_add_points", int(rng.randf_range(0, 5)))
+			emit_signal("_add_points", int(rng.randf_range(1, 5)))
 			print("WHY")
 	
 	#deleting da timer
@@ -77,7 +77,7 @@ func _on_Button_pressed():
 	new_thing.text = ""
 	
 func _on_timer_timeout(which):
-	print("feck" + which.get_name())
+#	print("feck" + which.get_name())
 #	remove_child(which)
 	which.queue_free()
 
