@@ -458,3 +458,5 @@ margin_bottom = 30.0
 text = "Wood: 1"
 
 [connection signal="pressed" from="ContextMenu/CancelButton" to="GameManager" method="_on_CancelButton_pressed"]
+[connection signal="pressed" from="ContextMenu/HarvestButton" to="GameManager" method="_on_HarvestButton_pressed"]
+[connection signal="pressed" from="ContextMenu/BuildButton" to="GameManager" method="_on_BuildButton_pressed"]
