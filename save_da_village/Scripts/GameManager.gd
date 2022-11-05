@@ -55,3 +55,7 @@ func _grid_pressed(posx, posy):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 		pass
+
+
+func _on_CancelButton_pressed():
+	contextMenu.visible = false

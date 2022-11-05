@@ -416,3 +416,5 @@ margin_top = 72.0
 margin_right = 80.0
 margin_bottom = 92.0
 text = "Build"
+
+[connection signal="pressed" from="ContextMenu/CancelButton" to="GameManager" method="_on_CancelButton_pressed"]
