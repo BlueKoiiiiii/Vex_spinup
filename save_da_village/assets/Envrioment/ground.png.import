@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Villagers-Sheet.png-f88969992cad568e327ee4a198c385bc.stex"
+path="res://.import/ground.png-a50b8922e8f0846677c2afa8b873914a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Villagers-Sheet.png"
-dest_files=[ "res://.import/Villagers-Sheet.png-f88969992cad568e327ee4a198c385bc.stex" ]
+source_file="res://assets/Envrioment/ground.png"
+dest_files=[ "res://.import/ground.png-a50b8922e8f0846677c2afa8b873914a.stex" ]
 
 [params]
 
@@ -20,11 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-<<<<<<< HEAD
 flags/filter=true
-=======
-flags/filter=false
->>>>>>> 30b6146ccdd43a8cf2c49b6bbe4faecaa5914236
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
