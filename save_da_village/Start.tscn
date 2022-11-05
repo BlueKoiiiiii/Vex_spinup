@@ -635,4 +635,8 @@ text = "Wood: 1"
 [node name="Node" parent="." instance=ExtResource( 6 )]
 
 [connection signal="pressed" from="ContextMenu/CancelButton" to="GameManager" method="_on_CancelButton_pressed"]
+<<<<<<< HEAD
 [connection signal="_add_points" from="Node" to="GameManager" method="_on_Node__add_points"]
+=======
+[connection signal="pressed" from="ContextMenu/HarvestButton" to="GameManager" method="_on_HarvestButton_pressed"]
+>>>>>>> a4a9b8397657f0b32fe8878159a8582598a6a3dd
