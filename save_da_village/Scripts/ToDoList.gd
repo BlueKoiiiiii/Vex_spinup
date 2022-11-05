@@ -1,30 +1,26 @@
 extends Node
 
-onready var list = get_node("ItemList")
+onready var list_not_done = get_node("ToDoList")
+onready var list_done = get_node("FinishedList")
 onready var new_thing = get_node("TextEdit")
+onready var timers_master = get_node("timers")
 onready var empty_box = preload("res://assets/Envrioment/checks1.png")
 onready var checked_box = preload("res://assets/Envrioment/checks2.png")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var identifier_arr 
+var identifier_num = int(0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
-
-
-
-
 func _on_ItemList_item_activated(index):
-	list.add_item(list.get_item_text(index), checked_box, false)
+	if(list_not_done.get_item_text(index) != "Make The Todo List"):
+		list_done.add_item(list_not_done.get_item_text(index), checked_box, false)
+		list_not_done.remove_item(index)
+	
+	# Bubble sort lmao, but true false
+	#if()
 #	list.add_icon_item(checked_box,false)
 
 
@@ -35,6 +31,35 @@ func _on_ItemList_item_selected(index):
 func _on_Button_pressed():
 	print("Hello world")
 	var new_item = new_thing.get_line(0)
-	list.add_item(new_item, empty_box, true)
+	var text = new_item.split(",")
+	var times = text[1].split(":")
+	list_not_done.add_item(text[0], empty_box, true)
+	
+	var timer := Timer.new()
+	timers_master.add_child(timer)
+	timer.wait_time = (int(times[0])*60*60 + int(times[1])*60 + int(times[2]))
+	timer.one_shot = true
+	timer.start()
+	
+	for i in get_node("timers").get_children():
+		i.connect("timeout",self,"_on_timer_timeout",[i])
+	
+	#for b in get_node("Node")get_children():
+	#	timer.connect("timeout", self, "_on_timer_timeout",[b])
+
+
 	
 	
+	new_thing.text = ""
+	
+func _on_timer_timeout(which):
+	print("feck" + which.get_name())
+	remove_child(which)
+	which.queue_free()
+
+func _on_ItemList_item_activated2():
+	pass # Replace with function body.
+
+
+func _on_ItemList_item_selected2():
+	pass # Replace with function body.
