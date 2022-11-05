@@ -102,14 +102,17 @@ func _on_HarvestButton_pressed():
 		return
 	if(yield_r == null):
 		return
-	if(Inventory["points"] < yield_r[2]):
+	if(Inventory["points"] < yield_r[2]*sensorGrid[selected.x][selected.y].difficultyMultiplier):
 		print("Not enough points!")
 		return
-	Inventory["points"] -= yield_r[2]
+	Inventory["points"] -= yield_r[2]*sensorGrid[selected.x][selected.y].difficultyMultiplier
 	Inventory[yield_r[0]] += yield_r[1]
 	sensorGrid[selected.x][selected.y].health -= 1
 	if(sensorGrid[selected.x][selected.y].health == 0):
 		print("Destroy Block!") #to do: destroy block!
+		tileMap.set_cell(selected.x, selected.y, -1)
+		sensorGrid[selected.x][selected.y+1].harvestable = true
+		sensorGrid[selected.x][selected.y+1].buildable = true
 	
 	contextMenu.visible = false
 
