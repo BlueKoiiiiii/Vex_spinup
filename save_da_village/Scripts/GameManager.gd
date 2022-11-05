@@ -89,9 +89,6 @@ func _on_CancelButton_pressed():
 func _on_BuildButton_pressed():
 	pass
 
-func _add_points(points):
-	Inventory["points"] += points
-	print("HELLO")
 
 
 func _on_HarvestButton_pressed():
@@ -114,5 +111,7 @@ func _on_HarvestButton_pressed():
 	contextMenu.visible = false
 
 
-func _on_Node_add_points(add_val):
-	pass # Replace with function body.
+
+func _on_Node__add_points(points):
+	Inventory["points"] += points
+	print("HELLO")

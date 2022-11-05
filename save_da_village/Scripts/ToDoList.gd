@@ -11,6 +11,7 @@ var identifier_arr
 var identifier_num = int(0)
 var rng = RandomNumberGenerator.new()
 
+signal _add_points(points)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
