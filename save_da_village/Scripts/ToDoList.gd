@@ -51,20 +51,20 @@ func _on_Button_pressed():
 	print("Hello world")
 	var new_item = new_thing.get_line(0)
 	var text = new_item.split(",")
-	var times = text[1].split(":")
-	list_not_done.add_item(text[0], empty_box, true)
-	var timer := Timer.new()
-	timers_master.add_child(timer)
-	timer.wait_time = (int(times[0])*60*60 + int(times[1])*60 + int(times[2]))
-	timer.one_shot = true
-	timer.start()
-
-	var q = int(0)
-	for i in get_node("timers").get_children():
-		i.connect("timeout",self,"_on_timer_timeout",[i])
-		list_not_done.set_item_metadata(q, [i])
-		q += 1
-	new_thing.text = ""
+	if(text.size() > 1):
+		var times = text[1].split(":")
+		list_not_done.add_item(text[0], empty_box, true)
+		var timer := Timer.new()
+		timers_master.add_child(timer)
+		timer.wait_time = (int(times[0])*60*60 + int(times[1])*60)
+		timer.one_shot = true
+		timer.start()
+		var q = int(0)
+		for i in get_node("timers").get_children():
+			i.connect("timeout",self,"_on_timer_timeout",[i])
+			list_not_done.set_item_metadata(q, [i])
+			q += 1
+		new_thing.text = ""
 	
 func _on_timer_timeout(which):
 	emit_signal("_die_die_die")

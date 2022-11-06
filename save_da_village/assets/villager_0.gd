@@ -30,7 +30,7 @@ func _ready():
 	else:
 		animation.flip_h = true
 	
-	var char_selector = rand.randf_range(1,4)
+	var char_selector = rand.randf_range(1,6)
 	print(char_selector)
 	animation.animation = str(int(char_selector))
 # Called every frame. 'delta' is the elapsed time since the previous frame.

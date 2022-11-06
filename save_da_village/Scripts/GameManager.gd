@@ -48,9 +48,9 @@ func _ready():
 	menuItems = {
 		"points"    : get_node("/root/Node/InventoryRect/Points"),
 		"population": get_node("/root/Node/InventoryRect/Population"),
-		"gold"      : get_node("/root/Node/InventoryRect/Gold"),
-		"stone"     : get_node("/root/Node/InventoryRect/Stone"),
-		"wood"      : get_node("/root/Node/InventoryRect/Wood")
+#		"gold"      : get_node("/root/Node/InventoryRect/Gold"),
+#		"stone"     : get_node("/root/Node/InventoryRect/Stone"),
+#		"wood"      : get_node("/root/Node/InventoryRect/Wood")
 	}
 	
 	rand.randomize()
