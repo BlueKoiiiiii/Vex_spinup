@@ -1,6 +1,37 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/ToDoList.gd" type="Script" id=1]
+
+[sub_resource type="VisualScript" id=1]
+data = {
+"base_type": "Shader",
+"functions": [ {
+"data_connections": [  ],
+"function_id": -1,
+"name": "f_312843592",
+"nodes": [  ],
+"scroll": Vector2( -115.133, -97.0953 ),
+"sequence_connections": [  ]
+} ],
+"is_tool_script": false,
+"signals": [  ],
+"variables": [  ],
+"vs_unify": true
+}
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+void fragment()
+{
+  COLOR = texture(TEXTURE, UV); //read from texture
+	COLOR.b = 1.0;
+	COLOR.g = 1.0;
+	COLOR.r = 1.0; //set blue channel to 1.0
+}"
+script = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
 
 [node name="Node" type="Node"]
 script = ExtResource( 1 )
@@ -23,6 +54,7 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
+material = SubResource( 3 )
 margin_top = 66.0
 margin_right = 170.0
 margin_bottom = 80.0

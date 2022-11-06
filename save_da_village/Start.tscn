@@ -545,6 +545,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 follow_viewport_enable = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_mirroring = Vector2( 1024, 0 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2( 512, 300 )
