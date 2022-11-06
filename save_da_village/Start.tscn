@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Scripts/Grid/GridInteract.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.gd" type="Script" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://assets/villager0.tscn" type="PackedScene" id=5]
 [ext_resource path="res://ToDo.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/label_colour.gd" type="Script" id=7]
+[ext_resource path="res://assets/Envrioment/background.jpg" type="Texture" id=8]
 
 [sub_resource type="ConvexPolygonShape2D" id=2]
 points = PoolVector2Array( 0, 10, 32, 10, 32, 32, 0, 32 )
@@ -539,6 +540,15 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 24/z_index = 0
 
 [node name="Node" type="Node"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+follow_viewport_enable = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 512, 300 )
+texture = ExtResource( 8 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 336.0
