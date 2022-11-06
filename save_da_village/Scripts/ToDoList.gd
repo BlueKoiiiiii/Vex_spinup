@@ -38,9 +38,6 @@ func _on_ItemList_item_activated(index):
 	else:
 		pass
 	
-	# Bubble sort lmao, but true false
-	#if()
-#	list.add_icon_item(checked_box,false)
 
 
 func _on_ItemList_item_selected(index):
@@ -79,9 +76,7 @@ func _on_Button_pressed():
 	new_thing.text = ""
 	
 func _on_timer_timeout(which):
-#	print("feck" + which.get_name())
-#	remove_child(which)
-	gameManager.Inventory["points"] += 1
+
 	which.queue_free()
 
 func _on_ItemList_item_activated2():

@@ -24,6 +24,10 @@ var label
 # Preloading villagers for when they will be spawned in
 const villager_base = preload("res://assets/villager0.tscn")
 
+# Random number gen 
+var rand = RandomNumberGenerator.new()
+
+
 # Inventory
 var Inventory = {
 	"points"    : 10,
@@ -46,6 +50,8 @@ func _ready():
 		"stone"     : get_node("/root/Node/InventoryRect/Stone"),
 		"wood"      : get_node("/root/Node/InventoryRect/Wood")
 	}
+	
+	rand.randomize()
 	
 	tileMap = get_node("/root/Node/TileMap")
 	contextMenu = get_node("/root/Node/ContextMenu")
@@ -97,9 +103,21 @@ func _on_CancelButton_pressed():
 
 
 func _on_BuildButton_pressed():
-	pass
-
-
+	if(Inventory["points"] > 10):
+		var building = int(rand.randf_range(0,2))
+		# 0: log house
+		# 1: aparement
+		# 2: Brick house
+		#idfk why this works like this
+		# adding buildings breaks this
+		building = 0
+		if(building == 0):
+			tileMap.set_cell(selected.x,selected.y,26)
+		Inventory["points"] -= 10
+#		if(building == 1):
+#			tileMap.set_tile(selected.x,selected.y,28)
+#		if(building == 2):
+#			tileMap.set_tile(selected.x,selected.y,26)
 
 func _on_HarvestButton_pressed():
 	# TODO: PICK RANDOM ITEM FROM SELECTED RESOURCE YIELDS
