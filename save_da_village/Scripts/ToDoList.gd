@@ -24,7 +24,7 @@ func _ready():
 
 func _on_ItemList_item_activated(index):
 	var data = list_not_done.get_item_metadata(index-1)
-	print(data)
+#	print(data)
 
 	if(list_not_done.get_item_text(index) != "Make The Todo List"):
 		list_done.add_item(list_not_done.get_item_text(index), checked_box, false)
@@ -32,7 +32,7 @@ func _on_ItemList_item_activated(index):
 		#Only add points if the timer exists
 		if is_instance_valid(data[0]):
 			emit_signal("_add_points", int(rng.randf_range(1, 5)))
-			print("WHY")
+#			print("WHY")
 	
 	#deleting da timer
 	if is_instance_valid(data[0]):
@@ -48,7 +48,7 @@ func _on_ItemList_item_selected(index):
 
 
 func _on_Button_pressed():
-	print("Hello world")
+#	print("Hello world")
 	var new_item = new_thing.get_line(0)
 	var text = new_item.split(",")
 	if(text.size() > 1):
@@ -68,7 +68,7 @@ func _on_Button_pressed():
 	
 func _on_timer_timeout(which):
 	emit_signal("_die_die_die")
-	print("die")
+#	print("die")
 	which.queue_free()
 
 func _on_ItemList_item_activated2():

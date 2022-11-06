@@ -55,12 +55,12 @@ func _ready():
 	
 	rand.randomize()
 	
-	self.connect("_die_die_die",self,"_on_Node__die_die_die")
+#	self.connect("_die_die_die",self,"_on_Node__die_die_die")
 	
 	tileMap = get_node("/root/Node/TileMap")
 	contextMenu = get_node("/root/Node/ContextMenu")
 	label = get_node("/root/Node/Label")
-	print(tileMap.cell_tile_origin)
+#	print(tileMap.cell_tile_origin)
 	# Populate sensorGrid with GridInteracts
 	for i in range(X_SIZE/GRID_BLOCK_SIZE + 1):
 		sensorGrid.append([])
@@ -86,8 +86,8 @@ func _ready():
 
 
 func _grid_pressed(posx, posy):
-	print(sensorGrid[posx][posy].difficultyMultiplier)
-	print(posx, ", ", posy)
+#	print(sensorGrid[posx][posy].difficultyMultiplier)
+#	print(posx, ", ", posy)
 	selected = Vector2(posx, posy)
 	contextMenu.visible = true
 	contextMenu.set_position(Vector2(min(get_viewport().get_mouse_position().x, X_SIZE - MENU_BUTTON_WIDTH), min(get_viewport().get_mouse_position().y, Y_SIZE - MENU_BUTTON_HEIGHT)))
@@ -142,7 +142,7 @@ func _on_HarvestButton_pressed():
 	label.text = "Successfully harvested resource. It has been damaged."
 	label.modulate.a = 1
 	if(sensorGrid[selected.x][selected.y].health == 0):
-		print("Destroy Block!") #to do: destroy block!
+#		print("Destroy Block!") #to do: destroy block!
 		tileMap.set_cell(selected.x, selected.y, -1)
 		sensorGrid[selected.x][selected.y+1].harvestable = true
 		sensorGrid[selected.x][selected.y+1].buildable = true
@@ -166,11 +166,10 @@ func _on_Node__add_points(points):
 	var text = str(points)
 	label.text = "You got " + text + " points!"
 	label.modulate.a = 1
+	Inventory["population"] += 1
 
 	
 func _on_Node__die_die_die():
-	print("why")
-	
 	var children = vill_node.get_children()
-	var child_2_die = rand.randi_range(0,children.size())
+	var child_2_die = rand.randi_range(0,children.size()-1)
 	children[child_2_die].queue_free()
