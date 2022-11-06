@@ -17,6 +17,7 @@ func _ready():
 	timer.one_shot = true
 	timer.start()
 	timer.connect("timeout",self,"_on_timer_timeout")
+	timer.autostart = true
 	rand.randomize()
 	move = rand.randf_range(-100, 100)
 	
@@ -30,7 +31,6 @@ func _ready():
 	animation.animation = str(int(char_selector))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-
 	if is_on_floor() == true:
 		motion.y = 400
 	if is_on_floor() == false:
@@ -48,3 +48,4 @@ func _on_timer_timeout():
 		animation.flip_h = false
 	else:
 		animation.flip_h = true
+	print(move)
