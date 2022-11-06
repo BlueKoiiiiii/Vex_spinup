@@ -89,6 +89,10 @@ func _on_CancelButton_pressed():
 func _on_BuildButton_pressed():
 	pass
 
+func _add_points(points):
+	Inventory["points"] += points
+	print("HELLO")
+
 
 func _on_HarvestButton_pressed():
 	# TODO: PICK RANDOM ITEM FROM SELECTED RESOURCE YIELDS
@@ -108,3 +112,7 @@ func _on_HarvestButton_pressed():
 		print("Destroy Block!") #to do: destroy block!
 	
 	contextMenu.visible = false
+
+
+func _on_Node_add_points(add_val):
+	pass # Replace with function body.
