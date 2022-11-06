@@ -97,21 +97,33 @@ func _on_HarvestButton_pressed():
 	# TODO: PICK RANDOM ITEM FROM SELECTED RESOURCE YIELDS
 	var yield_r = sensorGrid[selected.x][selected.y].resources[0]
 	if(sensorGrid[selected.x][selected.y].harvestable == false):
-		print("Cannot Harvest!")
+		label.text = "That block cannot be harvested!"
+		label.modulate.a = 1
 		return
 	if(yield_r == null):
 		return
 	if(Inventory["points"] < yield_r[2]*sensorGrid[selected.x][selected.y].difficultyMultiplier):
-		print("Not enough points!")
+		label.text = "Not enough points."
+		label.modulate.a = 1
 		return
 	Inventory["points"] -= yield_r[2]*sensorGrid[selected.x][selected.y].difficultyMultiplier
 	Inventory[yield_r[0]] += yield_r[1]
 	sensorGrid[selected.x][selected.y].health -= 1
+	label.text = "Successfully harvested resource. It has been damaged."
+	label.modulate.a = 1
 	if(sensorGrid[selected.x][selected.y].health == 0):
 		print("Destroy Block!") #to do: destroy block!
 		tileMap.set_cell(selected.x, selected.y, -1)
 		sensorGrid[selected.x][selected.y+1].harvestable = true
 		sensorGrid[selected.x][selected.y+1].buildable = true
+		sensorGrid[selected.x][selected.y].harvestable = false
+		sensorGrid[selected.x][selected.y].buildable = false
+		for neighbour in sensorGrid[selected.x][selected.y].associatedNeighbours:
+			tileMap.set_cell(neighbour.x, neighbour.y, -1)
+			sensorGrid[neighbour.x][neighbour.y+1].harvestable = true
+			sensorGrid[neighbour.x][neighbour.y+1].buildable = true
+			sensorGrid[neighbour.x][neighbour.y].harvestable = false
+			sensorGrid[neighbour.x][neighbour.y].buildable = false
 	
 	contextMenu.visible = false
 

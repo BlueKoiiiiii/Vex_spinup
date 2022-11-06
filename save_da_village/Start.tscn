@@ -541,10 +541,10 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 [node name="Node" type="Node"]
 
 [node name="Label" type="Label" parent="."]
-margin_left = 2.0
-margin_top = 158.0
-margin_right = 197.0
-margin_bottom = 202.0
+margin_left = 336.0
+margin_top = 272.0
+margin_right = 531.0
+margin_bottom = 316.0
 script = ExtResource( 7 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -637,4 +637,3 @@ text = "Wood: 1"
 
 [connection signal="pressed" from="ContextMenu/CancelButton" to="GameManager" method="_on_CancelButton_pressed"]
 [connection signal="pressed" from="ContextMenu/HarvestButton" to="GameManager" method="_on_HarvestButton_pressed"]
-[connection signal="_add_points" from="Node" to="GameManager" method="_on_Node__add_points"]
