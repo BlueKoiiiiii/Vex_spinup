@@ -19,6 +19,10 @@ var selected = Vector2(0, 0)
 # Node references
 var tileMap
 var contextMenu
+var label
+
+# Preloading villagers for when they will be spawned in
+const villager_base = preload("res://assets/villager0.tscn")
 
 # Inventory
 var Inventory = {
@@ -45,6 +49,7 @@ func _ready():
 	
 	tileMap = get_node("/root/Node/TileMap")
 	contextMenu = get_node("/root/Node/ContextMenu")
+	label = get_node("/root/Node/Label")
 	print(tileMap.cell_tile_origin)
 	# Populate sensorGrid with GridInteracts
 	for i in range(X_SIZE/GRID_BLOCK_SIZE + 1):
@@ -68,6 +73,8 @@ func _ready():
 	Inventory["points"] += 1
 	# TODO: PREPROCESS THE CELLS IN TILEGRID TO SHOW WHAT RESOURCES, ETC THEY HAVE
 
+
+
 func _grid_pressed(posx, posy):
 	print(sensorGrid[posx][posy].difficultyMultiplier)
 	print(posx, ", ", posy)
@@ -80,6 +87,9 @@ func _grid_pressed(posx, posy):
 func _process(delta):
 	for key in menuItems:
 		menuItems[key].text = key + ": " + str(Inventory[key])
+	
+
+
 
 
 func _on_CancelButton_pressed():
@@ -89,30 +99,54 @@ func _on_CancelButton_pressed():
 func _on_BuildButton_pressed():
 	pass
 
-func _add_points(points):
-	Inventory["points"] += points
-	print("HELLO")
 
 
 func _on_HarvestButton_pressed():
 	# TODO: PICK RANDOM ITEM FROM SELECTED RESOURCE YIELDS
 	var yield_r = sensorGrid[selected.x][selected.y].resources[0]
 	if(sensorGrid[selected.x][selected.y].harvestable == false):
-		print("Cannot Harvest!")
+		label.text = "That block cannot be harvested!"
+		label.modulate.a = 1
 		return
 	if(yield_r == null):
 		return
-	if(Inventory["points"] < yield_r[2]):
-		print("Not enough points!")
+	if(Inventory["points"] < yield_r[2]*sensorGrid[selected.x][selected.y].difficultyMultiplier):
+		label.text = "Not enough points."
+		label.modulate.a = 1
 		return
-	Inventory["points"] -= yield_r[2]
+	Inventory["points"] -= yield_r[2]*sensorGrid[selected.x][selected.y].difficultyMultiplier
 	Inventory[yield_r[0]] += yield_r[1]
 	sensorGrid[selected.x][selected.y].health -= 1
+	label.text = "Successfully harvested resource. It has been damaged."
+	label.modulate.a = 1
 	if(sensorGrid[selected.x][selected.y].health == 0):
 		print("Destroy Block!") #to do: destroy block!
+		tileMap.set_cell(selected.x, selected.y, -1)
+		sensorGrid[selected.x][selected.y+1].harvestable = true
+		sensorGrid[selected.x][selected.y+1].buildable = true
+		sensorGrid[selected.x][selected.y].harvestable = false
+		sensorGrid[selected.x][selected.y].buildable = false
+		for neighbour in sensorGrid[selected.x][selected.y].associatedNeighbours:
+			tileMap.set_cell(neighbour.x, neighbour.y, -1)
+			sensorGrid[neighbour.x][neighbour.y+1].harvestable = true
+			sensorGrid[neighbour.x][neighbour.y+1].buildable = true
+			sensorGrid[neighbour.x][neighbour.y].harvestable = false
+			sensorGrid[neighbour.x][neighbour.y].buildable = false
 	
 	contextMenu.visible = false
 
 
-func _on_Node_add_points(add_val):
-	pass # Replace with function body.
+
+func _on_Node__add_points(points):
+	var new_vill = villager_base.instance()
+	add_child(new_vill)
+	Inventory["points"] += points
+	print("uh ok")
+	var text = str(points)
+	label.text = "You got " + text + " points!"
+	label.modulate.a = 1
+	
+
+	# Also add in 1-3 villagers
+	print("Hello world?")
+	

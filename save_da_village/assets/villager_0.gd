@@ -14,15 +14,8 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	var motion = Vector2()
-	rand.randomize()
-	if is_on_floor() == true:
-		motion.y = 400
-	if is_on_floor() == false:
-		if motion.y <= 390:
-			motion.y += 98
-	
-	var move = rand.randf_range(-100, 100)
-	
-	motion.x = move
-	
-	move_and_slide(motion, UP)
+	movement.randomize()
+	var move = movement.randf_range(-25, 25)
+	motion.x += move
+
+	move_and_slide(motion * speed)

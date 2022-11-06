@@ -21,6 +21,8 @@ var blockType : int 		# TODO: CREATE ENUM FOR BLOCK TYPES
 var resources : Array 		# Each element is of the form ["RESOURCE_NAME", numberOfResources, baseCostInPoints]
 var resourceYields : Array	# EXAMPLE: (RESOURCE_ID, 3600 seconds)
 
+var associatedNeighbours : Array # Neighbours to delete upon destruction. Array of Vector2()s
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

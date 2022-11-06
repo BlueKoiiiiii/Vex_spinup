@@ -10,10 +10,13 @@ onready var Points = get_node("/root/Node/InventoryRect/Points")
 var identifier_arr 
 var identifier_num = int(0)
 var rng = RandomNumberGenerator.new()
+var gameManager
 
+signal _add_points(points)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	gameManager = get_node("/root/Node/GameManager")
 	rng.randomize()
 
 func _on_ItemList_item_activated(index):
@@ -25,7 +28,7 @@ func _on_ItemList_item_activated(index):
 		list_not_done.remove_item(index)
 		#Only add points if the timer exists
 		if is_instance_valid(data[0]):
-			emit_signal("_add_points", int(rng.randf_range(0, 5)))
+			emit_signal("_add_points", int(rng.randf_range(1, 5)))
 			print("WHY")
 	
 	#deleting da timer
@@ -76,8 +79,9 @@ func _on_Button_pressed():
 	new_thing.text = ""
 	
 func _on_timer_timeout(which):
-	print("feck" + which.get_name())
+#	print("feck" + which.get_name())
 #	remove_child(which)
+	gameManager.Inventory["points"] += 1
 	which.queue_free()
 
 func _on_ItemList_item_activated2():
