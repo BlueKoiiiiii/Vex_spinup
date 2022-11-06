@@ -619,7 +619,9 @@ tile_data = PoolIntArray( 786437, 27, 0, 786442, 25, 0, 851968, 11, 0, 851999, 7
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource( 2 )
 
-[node name="Node" parent="GameManager" instance=ExtResource( 5 )]
+[node name="vills" type="Node" parent="GameManager"]
+
+[node name="Node" parent="GameManager/vills" instance=ExtResource( 5 )]
 
 [node name="ContextMenu" type="Node2D" parent="."]
 position = Vector2( 208, 88 )
@@ -693,3 +695,4 @@ text = "Wood: 1"
 [connection signal="pressed" from="ContextMenu/HarvestButton" to="GameManager" method="_on_HarvestButton_pressed"]
 [connection signal="pressed" from="ContextMenu/BuildButton" to="GameManager" method="_on_BuildButton_pressed"]
 [connection signal="_add_points" from="Node" to="GameManager" method="_on_Node__add_points"]
+[connection signal="_die_die_die" from="Node" to="GameManager" method="_on_Node__die_die_die"]

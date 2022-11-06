@@ -9,6 +9,8 @@ var UP = Vector2(0,-1)
 var move
 var autostart = false
 
+var timer_ref
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -19,6 +21,7 @@ func _ready():
 	timer.start()
 	timer.connect("timeout",self,"_on_timer_timeout")
 	timer.autostart = true
+	timer_ref = timer
 	rand.randomize()
 	move = rand.randf_range(-100, 100)
 	
@@ -37,7 +40,9 @@ func _physics_process(delta):
 	if is_on_floor() == false:
 		if motion.y <= 390:
 			motion.y += 98
-			
+	
+	print(timer_ref.is_stopped())
+	
 	motion.x = move
 #	print(motion.x)
 	move_and_slide(motion, UP)
@@ -48,4 +53,4 @@ func _on_timer_timeout():
 		animation.flip_h = false
 	else:
 		animation.flip_h = true
-	print(move)
+	timer_ref.start()

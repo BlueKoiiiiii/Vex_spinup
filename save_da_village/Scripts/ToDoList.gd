@@ -7,12 +7,15 @@ onready var timers_master = get_node("timers")
 onready var empty_box = preload("res://assets/Envrioment/checks1.png")
 onready var checked_box = preload("res://assets/Envrioment/checks2.png")
 onready var Points = get_node("/root/Node/InventoryRect/Points")
-var identifier_arr 
+var identifier_arr
 var identifier_num = int(0)
 var rng = RandomNumberGenerator.new()
 var gameManager
 
+signal _die_die_die(points)
 signal _add_points(points)
+# totally not a reference to reaper... *flash backs*
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -50,33 +53,22 @@ func _on_Button_pressed():
 	var text = new_item.split(",")
 	var times = text[1].split(":")
 	list_not_done.add_item(text[0], empty_box, true)
-	
-
-	
 	var timer := Timer.new()
 	timers_master.add_child(timer)
 	timer.wait_time = (int(times[0])*60*60 + int(times[1])*60 + int(times[2]))
 	timer.one_shot = true
 	timer.start()
-	
-	
+
 	var q = int(0)
 	for i in get_node("timers").get_children():
 		i.connect("timeout",self,"_on_timer_timeout",[i])
 		list_not_done.set_item_metadata(q, [i])
 		q += 1
-	
-	#for b in get_node("Node")get_children():
-	#	timer.connect("timeout", self, "_on_timer_timeout",[b])
-
-
-
-	
-	
 	new_thing.text = ""
 	
 func _on_timer_timeout(which):
-
+	emit_signal("_die_die_die")
+	print("die")
 	which.queue_free()
 
 func _on_ItemList_item_activated2():

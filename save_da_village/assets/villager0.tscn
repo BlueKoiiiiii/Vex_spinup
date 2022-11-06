@@ -48,6 +48,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 6.5, 14 )
 
 [node name="Node" type="Node"]
 
@@ -60,5 +61,7 @@ frames = SubResource( 5 )
 animation = "4"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Villagers"]
+position = Vector2( 0.5, 2 )
 shape = SubResource( 6 )
 one_way_collision = true
+one_way_collision_margin = 37.1
