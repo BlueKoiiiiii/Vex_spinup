@@ -21,6 +21,9 @@ var tileMap
 var contextMenu
 var label
 
+# Preloading villagers for when they will be spawned in
+const villager_base = preload("res://assets/villager0.tscn")
+
 # Inventory
 var Inventory = {
 	"points"    : 10,
@@ -70,6 +73,8 @@ func _ready():
 	Inventory["points"] += 1
 	# TODO: PREPROCESS THE CELLS IN TILEGRID TO SHOW WHAT RESOURCES, ETC THEY HAVE
 
+
+
 func _grid_pressed(posx, posy):
 	print(sensorGrid[posx][posy].difficultyMultiplier)
 	print(posx, ", ", posy)
@@ -82,6 +87,9 @@ func _grid_pressed(posx, posy):
 func _process(delta):
 	for key in menuItems:
 		menuItems[key].text = key + ": " + str(Inventory[key])
+	
+
+
 
 
 func _on_CancelButton_pressed():
@@ -130,8 +138,15 @@ func _on_HarvestButton_pressed():
 
 
 func _on_Node__add_points(points):
+	var new_vill = villager_base.instance()
+	add_child(new_vill)
 	Inventory["points"] += points
-	print("Hello world")
+	print("uh ok")
 	var text = str(points)
 	label.text = "You got " + text + " points!"
 	label.modulate.a = 1
+	
+
+	# Also add in 1-3 villagers
+	print("Hello world?")
+	
