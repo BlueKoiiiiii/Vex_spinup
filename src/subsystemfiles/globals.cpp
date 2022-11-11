@@ -7,6 +7,7 @@
     pros::Motor DRF(2, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor DLB(1, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Motor DRB(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+    pros::Motor Intake(11, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
     pros::Controller Master (pros::E_CONTROLLER_MASTER);
     pros::ADIEncoder encoder_right(3, 4, true);
     pros::ADIEncoder encoder_left (1, 2, true);

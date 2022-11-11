@@ -6,15 +6,17 @@
 bool run_flywheel = false;
 bool run_fast = false;
 bool driveforward = true;
+bool run_intake = false;
+int intakecounts = 1;
 //int targetrpm = 550;
 //double flypower = pow(targetrpm, 2) * 0.000003 + 0.0032 * targetrpm - 0.2616;
 
 
 void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-        Indexer.move_absolute (100, 300);
+        Indexer.move_absolute (300, 300);
         pros::delay (100);
-        Indexer.move_absolute (10, 300);
+        Indexer.move_absolute (0, 300);
     }
 }
 
@@ -193,7 +195,26 @@ void op_flywheel(int low_target, int fast_target) {
         Flywheel2.move (0);
     }
 }
+void op_intake(){
+    if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
+        intakecounts = intakecounts + 1;
+        pros::delay(50);
+    }
 
+    if (intakecounts % 2 == 0){
+        run_intake = true;
+    }
+    else {
+        run_intake = false;
+    }
+    if (run_intake){
+        Intake.move(127);
+    }
+    else {
+        Intake.move(0);
+    }
+
+}
 void op_drive() {
 
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R2)){

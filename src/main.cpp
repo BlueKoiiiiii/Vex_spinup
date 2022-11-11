@@ -95,6 +95,7 @@ void opcontrol() {
         op_flywheel(400, 600);
         op_indexer();
         op_drive();
+        op_intake();
         pros::delay(50);
 
 
