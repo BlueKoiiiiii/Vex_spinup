@@ -4,7 +4,7 @@
 
 #include "main.h"
 bool run_flywheel = false;
-bool run_fast = false;
+bool run_fast = true;
 bool driveforward = true;
 bool run_intake = false;
 int intakecounts = 1;
@@ -14,9 +14,10 @@ int intakecounts = 1;
 
 void op_indexer() {
     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)) {
-        Indexer.move_absolute (300, 300);
-        pros::delay (100);
+        Indexer.move_absolute (250, 300);
+        pros::delay (500);
         Indexer.move_absolute (0, 300);
+        pros::delay(100);
     }
 }
 
@@ -66,16 +67,16 @@ void op_flywheel(int low_target, int fast_target) {
     if (run_flywheel and run_fast) {
         //Constants//
         float kp = 0.5;
-        float ki = 0.07;
-        float kd = 0.08;
+        float ki = 0.002;
+        float kd = 0.029;
 //PID Variables Here//
         double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
         double currentVelocity = doublecurrentVelocity/2;
         int fasterror = fast_target - currentVelocity;
         int lastfastError = 0;
         int totalfastError = 0;
-        int integralfastActiveZone = 70;
-        int currentfastFlywheelVoltage = 30;
+        int integralfastActiveZone = 150;
+        int currentfastFlywheelVoltage = 60;
         int onTargetCount = 0;
         float finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
 
@@ -107,7 +108,7 @@ void op_flywheel(int low_target, int fast_target) {
 
                 Flywheel1.move(currentfastFlywheelVoltage);
                 Flywheel2.move(currentfastFlywheelVoltage);
-                pros::delay(5);
+                pros::delay(10);
         std::ofstream Card;
         Card.open("/usd/TuningValues.txt", std::ios_base::app);
         Card << fasterror << "\t" << finalfastAdjustment << "\t" << currentfastFlywheelVoltage <<std::endl;
@@ -198,7 +199,7 @@ void op_flywheel(int low_target, int fast_target) {
 void op_intake(){
     if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
         intakecounts = intakecounts + 1;
-        pros::delay(50);
+        pros::delay(100);
     }
 
     if (intakecounts % 2 == 0){

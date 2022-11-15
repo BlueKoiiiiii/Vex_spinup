@@ -59,6 +59,27 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
+//    runintake();
+//    pidforward(40);
+//    pros::delay(6000);
+//    stopintake();
+//    pidflywheel();
+//    sensors_reset();
+//    pidturn(-180);
+//    Indexer.move_absolute(250, 300);
+//    pros::delay(500);
+//    Indexer.move_absolute(0, 300);
+//    pros::delay(1000);
+//    Indexer.move_absolute(250, 300);
+//    pros::delay(500);
+//    Indexer.move_absolute(0, 300);
+//    pros::delay(1000);
+//    Indexer.move_absolute(250, 300);
+//    pros::delay(1000);
+//    Indexer.move_absolute(0, 300);
+
+
+
 //    pidforward(20);
 //sensors_reset();
 //pidturn(90);

@@ -8,4 +8,9 @@ extern float totalerror;
 extern int target;
 void pidturn(int angle);
 void infodisplay();
+void runintake();
+void stopintake();
+void stopflywheel();
+void runindexer();
+void pidflywheel();
 #endif //NEW_AUTONOMOUS_H

@@ -2,7 +2,7 @@
 // Created by Daniel on 2022-10-13.
 //
 #include "main.h"
-float power = 2000;
+float power = 4000;
 float totalerror = 0;
 
 void sensors_reset(){
@@ -61,8 +61,66 @@ void pidforward(int inches) {
 //        pros::lcd::set_text(6, std::to_string(encoder_rear.get_value()));
 //        pros::delay(10);
 //    }
+    void runintake(){
+    Intake.move (127);
+};
+    void stopintake(){
+        Intake.move (0);
+    }
+    void runindexer() {
+        Indexer.move_absolute(300, 300);
+        pros::delay(100);
+        Indexer.move_absolute(0, 300);
+    }
+    void pidflywheel() {
+//        float kp = 0.5;
+//        float ki = 0.07;
+//        float kd = 0.08;
+        float kp = 0.5;
+        float ki = 0.002;
+        float kd = 0.029;
+//PID Variables Here//
+        double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
+        double currentVelocity = doublecurrentVelocity / 2;
+        int fasterror = 600 - currentVelocity;
+        int lastfastError = 0;
+        int totalfastError = 0;
+        int integralfastActiveZone = 70;
+        int currentfastFlywheelVoltage = 30;
+        int onTargetCount = 0;
+        float finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
+
+//Temp Variable//
+        int deltaTime = 0;
+
+        if (fasterror == 0) {
+            lastfastError = 0;
+        } else {
+            lastfastError = fasterror;
+        }
+
+        if (abs(fasterror) < integralfastActiveZone and fasterror != 0) {
+            totalfastError += fasterror;
+        } else {
+            totalfastError = 0;
+        }
+
+        finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
+        currentfastFlywheelVoltage = currentfastFlywheelVoltage + finalfastAdjustment;
+        pros::lcd::set_text(8, "Fast");
+        pros::lcd::set_text(1, std::to_string(fasterror));
+        pros::lcd::set_text(2, std::to_string(totalfastError));
+
+        Flywheel1.move(currentfastFlywheelVoltage);
+        Flywheel2.move(currentfastFlywheelVoltage);
+        pros::delay(5);
+    }
+    void stopflywheel(){
+        Flywheel1.move (0);
+        Flywheel2.move (0);
+};
     void pidturn(int angle) {
-            int target = angle / 0.245;
+            int target = angle / 0.29;
             int integralactivezone = 75;
             int lasterror = 0;
 //            pros::lcd::set_text(1, std::to_string(target));
