@@ -199,7 +199,7 @@ void op_flywheel(int low_target, int fast_target) {
 void op_intake(){
     if(Master.get_digital(pros::E_CONTROLLER_DIGITAL_Y)){
         intakecounts = intakecounts + 1;
-        pros::delay(100);
+        pros::delay(200);
     }
 
     if (intakecounts % 2 == 0){
