@@ -171,8 +171,9 @@ void pidforward(int inches) {
                     double rightcounts = encoder_right.get_value();
 //                    double globalpos = leftcounts + rightcounts;
                     double error = target - rightcounts;
-                    float P = 0.05;
-                    float I = 0.005;
+                    float P = 0.5;
+                    float I = 0.01;
+                    float D = 0.06;
                     float pid = (P * error) + (I * totalerror);
 //                    float pid = (P * error);
                     float gain = pid;
@@ -196,6 +197,12 @@ void pidforward(int inches) {
                     }
                     else{
                         totalerror = 0;
+                    }
+                    if (error == 0){
+                        lasterror = 0;
+                    }
+                    else {
+                        lasterror = error;
                     }
                     pros::delay(10);
                 }
