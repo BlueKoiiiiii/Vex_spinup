@@ -1,17 +1,35 @@
 #include "main.h"
 
-    pros::Motor Flywheel1(7, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor Flywheel2(8, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor Indexer(9, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor DLF(4, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor DRF(2, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor DLB(1, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor DRB(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Motor Intake(11, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
-    pros::Controller Master (pros::E_CONTROLLER_MASTER);
-    pros::ADIEncoder encoder_right(3, 4, true);
-    pros::ADIEncoder encoder_left (1, 2, true);
-    pros::ADIEncoder encoder_rear (5, 6, true);
+//    pros::Motor Flywheel1(6, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor Flywheel2(21, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor Indexer(9, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor DLF(4, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor DRF(2, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor DLB(1, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor DRB(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Motor Intake(11, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+//    pros::Controller Master (pros::E_CONTROLLER_MASTER);
+//    pros::ADIEncoder encoder_right(3, 4, true);
+//    pros::ADIEncoder encoder_left (1, 2, true);
+//    pros::ADIEncoder encoder_rear (5, 6, true);
+//    pros::ADIDigitalOut piston (7);
+
+pros::Motor Flywheel1(6, pros::E_MOTOR_GEARSET_06, false, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor Flywheel2(21, pros::E_MOTOR_GEARSET_06, true, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor Indexer(9, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor DLF(4, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor DRF(7, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor DLB(2, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor DRB(6, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor DLFF(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor DRFF(8, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Motor Intake(11, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+pros::Controller Master (pros::E_CONTROLLER_MASTER);
+pros::ADIEncoder encoder_right(3, 4, true);
+pros::ADIEncoder encoder_left (1, 2, true);
+pros::ADIEncoder encoder_rear (5, 6, true);
+pros::ADIDigitalOut piston (7);
+
 //
 //void drivemotors(){
 //    int x = abs(con.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_X));

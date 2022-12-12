@@ -13,6 +13,7 @@ void op_indexer();
 void op_flywheel(int low_target, int fast_target);
 void op_drive();
 void op_intake();
+void pneumatic();
 extern double flypower;
 extern int currentFlywheelVoltage;
 void test_turn();

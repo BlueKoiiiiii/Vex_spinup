@@ -25,7 +25,6 @@ void on_center_button() {
 void initialize() {
     pros::lcd::initialize();
     pros::lcd::register_btn1_cb(on_center_button);
-    autonomous();
     pros::delay(500);
 }
 
@@ -59,7 +58,135 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-//    runintake();
+//    pidturn(90, 4000);
+//    sensors_reset();
+//    pidturn(-90, 4100);
+//    //closer side
+//    runreverseintake();
+//    pidforward(1);
+//    pros::delay(200);
+//    sensors_reset();
+//    pros::delay(100);
+//    pidreverse(3);
+//    sensors_reset();
+//    pros::delay(100);
+////    pidturn(-0.35, 4000);
+//    DLF.move(-50);
+//    DRF.move(50);
+//    DRB.move(50);
+//    DLF.move(-50);
+//    pros::delay(200);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+//    Flywheel1.move_velocity(600);
+//    Flywheel2.move_velocity(600);
+//    pros::delay(4500);
+//    runindexer();
+//    pros::delay(4000);
+//    runindexer();
+//    pros::delay(3000);
+//    runindexer();
+//    Flywheel1.move(0);
+//    Flywheel2.move(0);
+
+//    //farther side
+//    sensors_reset();
+//    pidforward(20);
+//    sensors_reset();
+//    pidturn(100, 3000);
+//    sensors_reset();
+//    pros::delay(100);
+//    sensors_reset();
+//    DLF.move(50);
+//    DRF.move(50);
+//    DLB.move(50);
+//    DRB.move(50);
+//    pros::delay(1000);
+//    runreverseintake();
+//    pros::delay(1000);
+
+//skills
+//    runreverseintake();
+//    pidforward(1);
+//    pros::delay(100);
+//    sensors_reset();
+//    pros::delay(100);
+//    pidreverse(3);
+//    sensors_reset();
+//    pros::delay(100);
+//    DLF.move(-50);
+//    DRF.move(50);
+//    DRB.move(50);
+//    DLF.move(-50);
+//    pros::delay(200);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+//    Flywheel1.move_velocity(550);
+//    Flywheel2.move_velocity(550);
+//    pros::delay(3000);
+//    runindexer();
+//    pros::delay(3000);
+//    runindexer();
+//    pros::delay(3000);
+//    runindexer();
+//    Flywheel1.move(0);
+//    Flywheel2.move(0);
+//    sensors_reset();
+//    DLF.move(50);
+//    DRF.move(-50);
+//    DRB.move(-50);
+//    DLF.move(50);
+//    pros::delay(200);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+//    sensors_reset();
+//    pidreverse(10);
+//    sensors_reset();
+//    DLF.move(-50);
+//    DRF.move(-50);
+//    DRB.move(50);
+//    DLF.move(50);
+//    pros::delay(1500);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+//    sensors_reset();
+//    pidforward(50);
+//    pros::delay(1000);
+//    sensors_reset();
+//    pidreverse(10);
+//    DLF.move(-50);
+//    DRF.move(50);
+//    DRB.move(50);
+//    DLF.move(-50);
+//    pros::delay(1000);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+//    pidforward(160);
+//    DLF.move(-50);
+//    DRF.move(50);
+//    DRB.move(50);
+//    DLF.move(-50);
+//    pros::delay(1000);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+
+
+//    piston.set_value(true);
+//    pros::delay(1000);
+//    piston.set_value(false);
+////    runintake();
 //    pidforward(40);
 //    pros::delay(6000);
 //    stopintake();
@@ -103,9 +230,12 @@ void autonomous() {
  */
 void opcontrol() {
     while (true){
-        pros::lcd::print (3, "Motor1 power: %f\n", Flywheel1.get_power());
-        pros::lcd::print (4, "Motor2 power: %f\n", Flywheel2.get_power());
-        pros::lcd::print (5, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
+        pros::lcd::print (4, "Motor1 power: %f\n", Flywheel1.get_power());
+        pros::lcd::print (5, "Motor2 power: %f\n", Flywheel2.get_power());
+        pros::lcd::print (6, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
+        pros::lcd::set_text(1, std::to_string(encoder_right.get_value()));
+        pros::lcd::set_text(2, std::to_string(encoder_left.get_value()));
+        pros::lcd::set_text(3, std::to_string(encoder_rear.get_value()));
 //        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
 //        pros::lcd::set_text(
 //        6, std::to_string(encoder_rear.get_value()));
@@ -117,6 +247,7 @@ void opcontrol() {
         op_indexer();
         op_drive();
         op_intake();
+        pneumatic();
         pros::delay(50);
 
 

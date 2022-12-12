@@ -6,11 +6,13 @@ void pidforward(int inches);
 void sensors_reset();
 extern float totalerror;
 extern int target;
-void pidturn(int angle);
+void pidturn(double angle, int turnpower);
 void infodisplay();
 void runintake();
 void stopintake();
 void stopflywheel();
 void runindexer();
+void runreverseintake();
 void pidflywheel();
+void pidreverse(int inches);
 #endif //NEW_AUTONOMOUS_H
