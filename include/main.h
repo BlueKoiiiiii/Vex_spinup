@@ -81,6 +81,8 @@ void opcontrol(void);
 #include "subsystemheaders/drive.h"
 #include "subsystemheaders/autonomous.h"
 #include <fstream>
+#include "pros/apix.h"
+//#include "Capture.c"
 #endif
 
 #endif  // _PROS_MAIN_H_

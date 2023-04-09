@@ -3,9 +3,9 @@
 //
 #include "main.h"
 extern pros::Motor Flywheel1;
-extern pros::Motor Flywheel2;
 extern pros::Motor Indexer;
 extern pros::Controller Master;
+extern pros::Imu imu_sensor;
 extern pros::Motor DRB;
 extern pros::Motor DLB;
 extern pros::Motor DRF;

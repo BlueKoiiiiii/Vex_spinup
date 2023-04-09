@@ -23,9 +23,28 @@ void on_center_button() {
  * to keep execution time for this mode under a few seconds.
  */
 void initialize() {
-    pros::lcd::initialize();
-    pros::lcd::register_btn1_cb(on_center_button);
+//    pros::lcd::initialize();
+//    pros::lcd::register_btn1_cb(on_center_button);
     pros::delay(500);
+//    autonomous();
+//    LV_TICK_CUSTOM(5);
+//    lv_init();
+//    lv_obj_t * icon = lv_img_create(lv_scr_act(), NULL);
+//    lv_img_set_src(icon, Capture);
+//    lv_obj_t * icon = lv_img_create(lv_scr_act(), NULL);
+//    lv_img_set_src(icon, "C:\Users\Daniel\Downloads\Capture.c");
+    LV_IMG_DECLARE(converted_img_var);
+//    lv_img_set_src(img1, &converted_img_var);
+//    lv_img_set_src(icon, "C:\\Users\\Daniel\\Downloads\\Capture.c\");
+//    LV_IMG_DECLARE(my_icon_dsc);
+//    imu_sensor.reset();
+//    pros::delay(2000);
+//    imu_turnleft(270, 20);
+////    imu_turnright(90, 20);
+//    pros::delay(10000);
+//    imu_sensor.reset();
+//    imu_turnright(90, 10);
+//    pros::delay(100000);
 }
 
 /**
@@ -58,6 +77,500 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
+    piston.set_value(true);
+//    skills();
+//    closeauton();
+    std::ofstream Card;
+    Card.open("/TuningValues.txt", std::ios_base::app);
+    Card <<imu_sensor.get_heading()<<std::endl;
+
+
+Master.set_text(0,0, std::to_string(imu_sensor.get_heading()));
+farauton();
+    Card.close();
+//    Card.close();
+//safefarauton();
+//    far side (just roller)
+//    DLFF.move(50);
+//    DRFF.move(50);
+//    DLF.move(50);
+//    DRF.move(50);
+//    DLB.move(50);
+//    DRB.move(50);
+//    pros::delay(1000);
+//    DLFF.move(-50);
+//    DRFF.move(50);
+//    DLF.move(-50);
+//    DRF.move(50);
+//    DLB.move(-50);
+//    DRB.move(50);
+//    runintake();
+//    pros::delay(700);
+//    DLFF.move(-50);
+//    DRFF.move(-50);
+//    DLF.move(-50);
+//    DRF.move(-50);
+//    DLB.move(-50);
+//    DRB.move(-50);
+//    pros::delay(500);
+//    DLFF.move(50);
+//    DRFF.move(50);
+//    DLF.move(50);
+//    DRF.move(50);
+//    DLB.move(50);
+//    DRB.move(50);
+//    pros::delay(200);
+//    DLFF.move(0);
+//    DRFF.move(0);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DLB.move(0);
+//    DRB.move(0);
+
+
+// far side (6 disc and roller)
+//runreverseintake();
+//Flywheel1.move_voltage(11000);
+//    DLFF.move(50);
+//    DRFF.move(50);
+//    DLF.move(50);
+//    DRF.move(50);
+//    DLB.move(50);
+//    DRB.move(50);
+//    pros::delay(500);
+//    DLFF.move(80);
+//    DRFF.move(-80);
+//    DLF.move(80);
+//    DRF.move(-80);
+//    DLB.move(80);
+//    DRB.move(-80);
+//    pros::delay(400);
+//    runintake();
+//    pros::delay(2000);
+//    stopintake();
+//    DLFF.move(-80);
+//    DRFF.move(80);
+//    DLF.move(-80);
+//    DRF.move(80);
+//    DLB.move(-80);
+//    DRB.move(80);
+//    pros::delay(800);
+//    runreverseintake();
+//    DLFF.move(50);
+//    DRFF.move(50);
+//    DLF.move(50);
+//    DRF.move(50);
+//    DLB.move(50);
+//    DRB.move(50);
+//    pros::delay(1000);
+//    DLFF.move(80);
+//    DRFF.move(-80);
+//    DLF.move(80);
+//    DRF.move(-80);
+//    DLB.move(80);
+//    DRB.move(-80);
+//    pros::delay(500);
+//    DLFF.move(0);
+//    DRFF.move(0);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DLB.move(0);
+//    DRB.move(0);
+//    runintake();
+//    pros::delay(1000);
+//    runreverseintake();
+//    DLFF.move(-80);
+//    DRFF.move(-80);
+//    DLF.move(-80);
+//    DRF.move(-80);
+//    DLB.move(-80);
+//    DRB.move(-80);
+//    pros::delay(1000);
+//    DLFF.move(80);
+//    DRFF.move(-80);
+//    DLF.move(80);
+//    DRF.move(-80);
+//    DLB.move(80);
+//    DRB.move(-80);
+//    pros::delay(400);
+//    DLFF.move(-50);
+//    DRFF.move(-50);
+//    DLF.move(-50);
+//    DRF.move(-50);
+//    DLB.move(-50);
+//    DRB.move(-50);
+//    pros::delay(500);
+//    DLFF.move(0);
+//    DRFF.move(0);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DLB.move(0);
+//    DRB.move(0);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    close side (5 disc and roller)
+
+
+
+
+
+
+
+//skills
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//close side (two roller, two disc)
+//    runintake();
+//    DLFF.move(-50);
+//    DRFF.move(-50);
+//    DLF.move(-50);
+//    DRF.move(-50);
+//    DLB.move(-50);
+//    DRB.move(-50);
+//    pros::delay(300);
+//    DLFF.move(0);
+//    DRFF.move(0);
+//    DLF.move(0);
+//    DRF.move(0);
+//    DLB.move(0);
+//    DRB.move(0);
+//    stopintake();
+//    DLF.move(30);
+//    DLB.move(30);
+//    DLFF.move(30);
+//    DRF.move(-30);
+//    DRB.move(-30);
+//    DRFF.move(-30);
+//    pros::delay(650);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//    runreverseintake();
+//    DLF.move(90);
+//    DLB.move(90);
+//    DLFF.move(90);
+//    DRF.move(90);
+//    DRB.move(90);
+//    DRFF.move(90);
+//    pros::delay(1400);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//    pros::delay(2000);
+//    DLF.move(-60);
+//    DLB.move(-60);
+//    DLFF.move(-60);
+//    DRF.move(60);
+//    DRB.move(60);
+//    DRFF.move(60);
+//    pros::delay(450);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//    stopintake();
+//    pros::delay(1000);
+//    runintake();
+//    pros::delay(4000);
+//    stopintake();
+//    Flywheel1.move(0);
+//    DLF.move(60);
+//    DLB.move(60);
+//    DLFF.move(60);
+//    DRF.move(-60);
+//    DRB.move(-60);
+//    DRFF.move(-60);
+//    pros::delay(450);
+//    runreverseintake();
+//    DLF.move(60);
+//    DLB.move(60);
+//    DLFF.move(60);
+//    DRF.move(60);
+//    DRB.move(60);
+//    DRFF.move(60);
+//    pros::delay(1000);
+//    runreverseintake();
+//    DLF.move(-60);
+//    DLB.move(-60);
+//    DLFF.move(-60);
+//    DRF.move(60);
+//    DRB.move(60);
+//    DRFF.move(60);
+//    pros::delay(500);
+//    DLF.move(-60);
+//    DLB.move(-60);
+//    DLFF.move(-60);
+//    DRF.move(-60);
+//    DRB.move(-60);
+//    DRFF.move(-60);
+//    pros::delay(450);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    DLF.move(60);
+//    DLB.move(60);
+//    DLFF.move(60);
+//    DRF.move(-60);
+//    DRB.move(-60);
+//    DRFF.move(-60);
+//    pros::delay(450);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//    DLF.move(60);
+//    DLB.move(60);
+//    DLFF.move(60);
+//    DRF.move(60);
+//    DRB.move(60);
+//    DRFF.move(60);
+//    pros::delay(4000);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//    DLF.move(-60);
+//    DLF.move(-60);
+//    DLB.move(-60);
+//    DLFF.move(-60);
+//    DRF.move(60);
+//    DRB.move(60);
+//    DRFF.move(60);
+//    pros::delay(500);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DLFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//    runintake();
+////    DLB.move(-60);
+////    DLFF.move(-60);
+////    DRF.move(60);
+////    DRB.move(60);
+////    DRFF.move(60);
+////    pros::delay(380);
+////    DLF.move(0);
+////    DLB.move(0);
+////    DLFF.move(0);
+////    DRF.move(0);
+////    DRB.move(0);
+////    DRFF.move(0);
+////
+////
+////    DRFF.move(50);
+////    DRF.move(50);
+////    DRB.move(50);
+////    DLF.move(50);
+////    DLFF.move(50);
+////    DLB.move(50);
+////    pros::delay(1000);
+////    DRFF.move(0);
+////    DRF.move(0);
+////    DRB.move(0);
+////    DLF.move(0);
+//    DLFF.move(0);
+//    DLB.move(0);
+//
+////    DRB
+////    DRF.mo)ve(-20);
+//    DRB.move(-20);
+//    DRFF.move(-20);
+//    pros::delay(900);
+////    runreverseintake();
+//    DRF.move(0);
+//    DRB.move(0);
+//    DRFF.move(0);
+//
+//    far side
+//    Flywheel1.move_velocity(600);
+//    pros::delay(2000);
+//    runintake();
+//    pros::delay(2000);
+//    stopintake();
+//    pros::delay(2000);
+//    runintake();
+
+//    DLFF.move(40);
+//    DLF.move(40);
+//    DLB.move(40);
+//    DRFF.move(40);
+//    DRF.move(40);
+//    DRB.move(40);
+//    pros::delay(500);
+//    //90 degree turn
+//    DLFF.move(40);
+//    DLF.move(40);
+//    DLB.move(40);
+//    DRFF.move(-40);
+//    DRF.move(-40);
+//    DRB.move(-40);
+//    pros::delay(800);
+//    DLFF.move(0);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DRFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//
+//    DLFF.move(40);
+//    DLF.move(40);
+//    DLB.move(40);
+//    DRFF.move(40);
+//    DRF.move(40);
+//    DRB.move(40);
+//    pros::delay(1700);
+//
+//    DLFF.move(-40);
+//    DLF.move(-40);
+//    DLB.move(-40);
+//    DRFF.move(40);
+//    DRF.move(40);
+//    DRB.move(40);
+//    pros::delay(800);
+//    DLFF.move(0);
+//    DLF.move(0);
+//    DLB.move(0);
+//    DRFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//
+//    runintake();
+//    DLFF.move(-40);
+//    DLF.move(-40);
+//    DLB.move(-40);
+//    DRFF.move(-40);
+//    DRF.move(-40);
+//    DRB.move(-40);
+//    pros::delay(1000);
+//    stopintake();
+//    DLFF.move(40);
+//    DLF.move(40);
+//    DLB.move(40);
+//    DRFF.move(40);
+//    DRF.move(40);
+//    DRB.move(40);
+//    pidflywheel();
+//    pros::delay(500);
+//    DRFF.move(0);
+//    DRF.move(0);
+//    DRB.move(0);
+//    pros::delay(100);
+//    DLFF.move(0);
+//    DLF.move(0);
+//    DLB.move(0);
+//    pros::delay(2000);
+//    runintake();
+
+
+//    DLFF.move(40);
+//    DLF.move(40);
+//    DLB.move(40);
+//    pros::delay(1200);
+//    runreverseintake();
+//    DRB.move(40);
+//    DRF.move(40);
+//    DRFF.move(40);
+//    DLB.move(40);
+//    DLF.move(40);
+//    DLFF.move(40);
+//    pros::delay(7000);
+////    DRB.move(-50);
+////    DRF.move(-50);
+////    DRFF.move(-50);
+////    DLB.move(-50);
+////    DLF.move(-50);
+////    DLFF.move(-50);
+////    pros::delay(400);
+////    DRB.move(30);
+////    DRF.move(30);
+////    DRFF.move(30);
+////    DLB.move(30);
+////    DLF.move(30);
+////    DLFF.move(30);
+////    pros::delay(3500);
+//    DLB.move(-40);
+//    DLF.move(-40);
+//    DLFF.move(-40);
+//    DRF.move(40);
+//    DRFF.move(40);
+//    DRB.move(40);
+//    pros::delay(1000);
+//    runintake();
+//    DRF.move(0);
+//    DRFF.move(0);
+//    DRB.move(0);
+//    DLF.move(0);
+//    DLFF.move(0);
+//    DLB.move(0);
+
 //    pidturn(90, 4000);
 //    sensors_reset();
 //    pidturn(-90, 4100);
@@ -230,12 +743,12 @@ void autonomous() {
  */
 void opcontrol() {
     while (true){
+        Master.set_text(0,0, std::to_string(imu_sensor.get_heading()));
         pros::lcd::print (4, "Motor1 power: %f\n", Flywheel1.get_power());
-        pros::lcd::print (5, "Motor2 power: %f\n", Flywheel2.get_power());
         pros::lcd::print (6, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
-        pros::lcd::set_text(1, std::to_string(encoder_right.get_value()));
-        pros::lcd::set_text(2, std::to_string(encoder_left.get_value()));
-        pros::lcd::set_text(3, std::to_string(encoder_rear.get_value()));
+//        pros::lcd::set_text(1, std::to_string(encoder_right.get_value()));
+//        pros::lcd::set_text(2, std::to_string(encoder_left.get_value()));
+//        pros::lcd::set_text(3, std::to_string(encoder_rear.get_value()));
 //        pros::lcd::set_text(5, std::to_string(encoder_left.get_value()));
 //        pros::lcd::set_text(
 //        6, std::to_string(encoder_rear.get_value()));
@@ -243,18 +756,27 @@ void opcontrol() {
 //        test_turn();
 //            Flywheel1.move_velocity(600);
 //            Flywheel2.move_velocity(600);
-        op_flywheel(400, 600);
-        op_indexer();
-        op_drive();
+//        op_drive();
+        op_drivesplitcubic();
+//            op_logdrive();
+//        op_flywheel(370, 475);
+        flywheelop(8500, 12000);
+//Flywheel1.move_voltage(10000);
+//        op_indexer();
+//        ArcadeDrive();
         op_intake();
-        pneumatic();
-        pros::delay(50);
+        op_angler();
+//        std::ofstream Card;
+//        Card.open("/usd/TuningValues.txt", std::ios_base::app);
+//        Card << Flywheel1.get_power() << "\t" << Flywheel1.get_actual_velocity() <<std::endl;
+//        Card.close();
+//        pros::delay(50);
 
 
     }
 
 }
-//    std::ofstream Card;
+
 //    float flywheelrpm = Flywheel1.get_actual_velocity() * 5;
 //    while (true) {
 //        op_flywheel();
@@ -262,9 +784,8 @@ void opcontrol() {
 //        op_drive();
 ////        drivemotors();
 ////        setDrive();
-//        Card.open("/usd/TuningValues.txt", std::ios_base::app);
-//        Card << Flywheel1.get_power() << "\t" << Flywheel1.get_actual_velocity() <<std::endl;
-//        Card.close();
+
+
 //        pros::lcd::print (0, "Motor1 power: %f\n", Flywheel1.get_power());
 //        pros::lcd::print (1, "Motor2 power: %f\n", Flywheel2.get_power());
 //        pros::lcd::print (2, "Motor1 RPM: %f\n", Flywheel1.get_actual_velocity());
