@@ -17,6 +17,7 @@ void pneumatic();
 void op_angler();
 void op_drivesplitcubic();
 void op_logdrive();
+void opendgame();
 //void ArcadeDrive();
 void flywheelop(int low_volt, int high_volt);
 extern double flypower;

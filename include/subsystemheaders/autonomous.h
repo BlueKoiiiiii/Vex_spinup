@@ -15,6 +15,7 @@ void farauton();
 void closeauton();
 void safefarauton();
 //void farautonworlds();
+void worldcloseauton();
 void runintake();
 void stopintake();
 void stopflywheel();

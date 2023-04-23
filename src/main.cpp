@@ -77,7 +77,7 @@ void competition_initialize() {}
  * from where it left off.
  */
 void autonomous() {
-    piston.set_value(true);
+    piston.set_value(false);
 //    skills();
 //    closeauton();
     std::ofstream Card;
@@ -87,6 +87,7 @@ void autonomous() {
 
 Master.set_text(0,0, std::to_string(imu_sensor.get_heading()));
 farauton();
+//worldcloseauton();
     Card.close();
 //    Card.close();
 //safefarauton();
@@ -766,6 +767,7 @@ void opcontrol() {
 //        ArcadeDrive();
         op_intake();
         op_angler();
+        opendgame();
 //        std::ofstream Card;
 //        Card.open("/usd/TuningValues.txt", std::ios_base::app);
 //        Card << Flywheel1.get_power() << "\t" << Flywheel1.get_actual_velocity() <<std::endl;

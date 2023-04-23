@@ -54,9 +54,161 @@ void pidreverse(int inches){
     }
 }
 
+void worldcloseauton(){
+        imu_sensor.reset();
+        Flywheel1.move_voltage(12000);
+        pros::delay(2000);
+
+        // move backwards to make sure roller wheel touches roller
+        DLFF.move(-10);
+        DRFF.move(-10);
+        DLF.move(-10);
+        DRF.move(-10);
+        DLB.move(-10);
+        DRB.move(-10);
+
+        // does roller
+        pros::delay(200);
+        Intake.move(-127);
+        pros::delay(700);
+        Intake.move(0);
+
+        // move forward slightly to avoid touching roller or walls when turning
+        DLFF.move(40);
+        DRFF.move(40);
+        DLF.move(40);
+        DRF.move(40);
+        DLB.move(40);
+        DRB.move(40);
+        pros::delay(100);
+
+        DLFF.move(0);
+        DRFF.move(0);
+        DLF.move(0);
+        DRF.move(0);
+        DLB.move(0);
+        DRB.move(0);
+
+        // go closer to high goal
+        imu_turnright(41, 50);
+        DLFF.move(60);
+        DRFF.move(60);
+        DLF.move(60);
+        DRF.move(60);
+        DLB.move(60);
+        DRB.move(60);
+        pros::delay(700);
+
+        DLFF.move(0);
+        DRFF.move(0);
+        DLF.move(0);
+        DRF.move(0);
+        DLB.move(0);
+        DRB.move(0);
+
+        // aim towards high-goal
+        imu_turnleft(304, 50);
+
+        // shoot 2 discs towards high goal (very inconsistent)
+        Intake.move_voltage(12000);
+        pros::delay(200);
+        Intake.move_voltage(0);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(300);
+        Intake.move_voltage(0);
+        Flywheel1.move_voltage(11500);
+        // turn towards stack of three discs
+        imu_turnright(80, 50);
+
+        // move into the stack of three discs
+        DLFF.move(127);
+        DRFF.move(127);
+        DLF.move(127);
+        DRF.move(127);
+        DLB.move(127);
+        DRB.move(127);
+        pros::delay(200);
+
+        DLFF.move(-127);
+        DRFF.move(-127);
+        DLF.move(-127);
+        DRF.move(-127);
+        DLB.move(-127);
+        DRB.move(-127);
+        pros::delay(200);
+
+        // start intake
+        DLFF.move(25);
+        DRFF.move(25);
+        DLF.move(25);
+        DRF.move(25);
+        DLB.move(25);
+        DRB.move(25);
+
+        Intake.move_voltage(-12000);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(60);
+        Intake.move_voltage(-12000);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(60);
+        Intake.move_voltage(-12000);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(60);
+
+        DLFF.move(0);
+        DRFF.move(0);
+        DLF.move(0);
+        DRF.move(0);
+        DLB.move(0);
+        DRB.move(0);
+
+        Intake.move_voltage(-12000);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(50);
+
+        Intake.move_voltage(0);
+
+        imu_turnleft(257, 50);
+
+        // move towards high goal (get closer)
+        DLFF.move(40);
+        DRFF.move(40);
+        DLF.move(40);
+        DRF.move(40);
+        DLB.move(40);
+        DRB.move(40);
+        pros::delay(400);
+
+        DLFF.move(0);
+        DRFF.move(0);
+        DLF.move(0);
+        DRF.move(0);
+        DLB.move(0);
+        DRB.move(0);
+
+        pros::delay(400);
+
+        // shoot 3 discs towards high goal
+        Intake.move_voltage(12000);
+        pros::delay(200);
+        Intake.move_voltage(0);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(200);
+        Intake.move_voltage(0);
+        pros::delay(1000);
+        Intake.move_voltage(12000);
+        pros::delay(200);
+        Intake.move_voltage(0);
+}
 void farauton() {
     imu_sensor.reset();
-    Flywheel1.move_voltage(12000);
+    Flywheel1.move_voltage(12999);
     pros::delay(2500);
     Intake.move_voltage(-12000);
     DLF.move(70);
@@ -72,19 +224,23 @@ void farauton() {
     DLB.move(0);
     DRFF.move(0);
     DRB.move(0);
-    pros::delay(1000);
+    pros::delay(3000);
     imu_sensor.set_heading(1);
-    imu_turnright(25, 40);
+    imu_turnright(28, 40);
     Intake.move_voltage(12000);
-    pros::delay(200);
-    Intake.move_voltage(0);
-    pros::delay(800);
-    Intake.move_voltage(12000);
-    pros::delay(200);
-    Intake.move_voltage(0);
+    pros::delay(300);
+    Intake.move_voltage(-12000);
     pros::delay(1000);
     Intake.move_voltage(12000);
-    pros::delay(200);
+    pros::delay(300);
+    Intake.move_voltage(-12000);
+    pros::delay(1000);
+    Intake.move_voltage(12000);
+    pros::delay(300);
+    Intake.move_voltage(-12000);
+    pros::delay(1000);
+    Intake.move_voltage(12000);
+    pros::delay(300);
     Intake.move_voltage(0);
     DLF.move(-70);
     DRF.move(-70);
@@ -107,6 +263,26 @@ void farauton() {
     DLB.move(70);
     DRFF.move(70);
     DRB.move(70);
+    pros::delay(200);
+    DLF.move(0);
+    DRF.move(0);
+    DLFF.move(0);
+    DLB.move(0);
+    DRFF.move(0);
+    DRB.move(0);
+    pros::delay(1000);
+    imu_sensor.set_heading(1);
+    imu_turnright(90, 30);
+    Intake.move_voltage(12000);
+    pros::delay(200);
+    Intake.move_voltage(0);
+    imu_turnleft(260, 40);
+    DLF.move(-120);
+    DRF.move(-120);
+    DLFF.move(-120);
+    DLB.move(-120);
+    DRFF.move(-120);
+    DRB.move(-120);
     pros::delay(900);
     DLF.move(0);
     DRF.move(0);
@@ -114,30 +290,22 @@ void farauton() {
     DLB.move(0);
     DRFF.move(0);
     DRB.move(0);
-    pros::delay(100);
-    imu_sensor.set_heading(1);
-    imu_turnright(80, 30);
-    Intake.move_voltage(12000);
-    pros::delay(200);
-    Intake.move_voltage(0);
-    pros::delay(800);
-    Intake.move_voltage(12000);
-    pros::delay(200);
-    Intake.move_voltage(0);
-    imu_turnleft(270, 40);
-    DLF.move(-70);
-    DRF.move(-70);
-    DLFF.move(-70);
-    DLB.move(-70);
-    DRFF.move(-70);
-    DRB.move(-70);
-    pros::delay(1000);
+    imu_turnright(70, 40);
+    DLF.move(-90);
+    DRF.move(-90);
+    DLFF.move(-90);
+    DLB.move(-90);
+    DRFF.move(-90);
+    DRB.move(-90);
+    pros::delay(400);
     DLF.move(0);
     DRF.move(0);
     DLFF.move(0);
     DLB.move(0);
     DRFF.move(0);
     DRB.move(0);
+    Intake.move(120);
+
 
 
 }

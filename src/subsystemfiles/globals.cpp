@@ -30,7 +30,8 @@ pros::Controller Master (pros::E_CONTROLLER_MASTER);
 //pros::ADIEncoder encoder_right(3, 4, true);
 //pros::ADIEncoder encoder_left (1, 2, true);
 //pros::ADIEncoder encoder_rear (5, 6, true);
-pros::ADIDigitalOut piston (1);
+pros::ADIDigitalOut piston (8);
+pros::ADIDigitalOut endgame (6);
 
 //
 //void drivemotors(){

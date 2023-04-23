@@ -13,6 +13,7 @@ extern pros::Motor DLF;
 extern pros::Motor DLFF;
 extern pros::Motor DRFF;
 extern pros::Motor Intake;
+extern pros::ADIDigitalOut endgame;
 extern pros::ADIEncoder encoder_right;
 extern pros::ADIEncoder encoder_left;
 extern pros::ADIEncoder encoder_rear;
