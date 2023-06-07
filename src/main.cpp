@@ -86,7 +86,8 @@ void autonomous() {
 
 
 Master.set_text(0,0, std::to_string(imu_sensor.get_heading()));
-farauton();
+//farauton();
+worldcloseauton();
 //worldcloseauton();
     Card.close();
 //    Card.close();
@@ -761,7 +762,7 @@ void opcontrol() {
         op_drivesplitcubic();
 //            op_logdrive();
 //        op_flywheel(370, 475);
-        flywheelop(8500, 12000);
+        flywheelop(9000, 12000);
 //Flywheel1.move_voltage(10000);
 //        op_indexer();
 //        ArcadeDrive();
