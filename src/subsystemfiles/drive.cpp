@@ -41,182 +41,182 @@ void op_indexer() {
     }
 }
 
-void flywheelop(int low_volt, int high_volt){
-//    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
-//        flywheelcounts = flywheelcounts + 1;
-//    }
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
-        run_flywheel = true;
-    }
-    else {
-        run_flywheel = false;
-    }
-    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
-        run_fast = true;
-    }
-    else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-        run_fast = false;
-    }
+// void flywheelop(int low_volt, int high_volt){
+// //    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+// //        flywheelcounts = flywheelcounts + 1;
+// //    }
+//     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_R1)){
+//         run_flywheel = true;
+//     }
+//     else {
+//         run_flywheel = false;
+//     }
+//     if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+//         run_fast = true;
+//     }
+//     else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
+//         run_fast = false;
+//     }
 
-    if (run_flywheel){
-        Flywheel1.move_voltage(high_volt);
-    }
-    else {
-        Flywheel1.move_voltage(low_volt);
-    }
-//    else{
-//        Flywheel1.move(0);
-//    }
-}
+//     if (run_flywheel){
+//         Flywheel1.move_voltage(high_volt);
+//     }
+//     else {
+//         Flywheel1.move_voltage(low_volt);
+//     }
+// //    else{
+// //        Flywheel1.move(0);
+// //    }
+// }
 
-//void op_flywheel(int low_target, int fast_target, int high_low_target) {
-////    if (flypower > 127) {
-////        flypower = 127;
-////    }
-////
-////    if (flypower < 0) {
-////        flypower = 0;
-////    }
-//
-//    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
-//        flywheelcounts = flywheelcounts + 1;
+void op_flywheel(int low_target, int fast_target, int high_low_target) {
+//    if (flypower > 127) {
+//        flypower = 127;
 //    }
 //
-//    if (flywheelcounts % 2 == 0) {
-//        run_flywheel = true;
+//    if (flypower < 0) {
+//        flypower = 0;
 //    }
-//    else {
-//        run_flywheel = false;
-//    }
+
+   if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_X)) {
+       flywheelcounts = flywheelcounts + 1;
+   }
+
+   if (flywheelcounts % 2 == 0) {
+       run_flywheel = true;
+   }
+   else {
+       run_flywheel = false;
+   }
+
+   if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
+       run_fast = true;
+   }
+   else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
+       run_fast = false;
+   }
 //
-//    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
-//        run_fast = true;
-//    }
-//    else if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_B)){
-//        run_fast = false;
-//    }
-////
-////    if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
-////        targetrpm = targetrpm + 50;
-////        pros::delay(100);
-////    }
-////
-////    if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
-////        targetrpm = targetrpm - 50;
-////        pros::delay(100);
-////    }
-////
-////    if (flypower > 127) {
-////        flypower = 127;
-////        pros::delay(50);
-////    }
-////
-////    if (flypower < 0) {
-////        flypower = 0;
-////        pros::delay(50);
-////    }
-//
-//    if (run_flywheel and run_fast ) {
-//        //Constants//
-//        float kp = 0.85;
-//        float ki = 0.01;
-//        float kd = 0.05;
-////PID Variables Here//
-//        double doublecurrentVelocity = Flywheel1.get_actual_velocity();
-//        double currentVelocity = doublecurrentVelocity;
-//        int fasterror = fast_target - currentVelocity;
-//        int lastfastError = 0;
-//        int totalfastError = 0;
-//        int integralfastActiveZone = 50;
-//        int currentfastFlywheelVoltage = 60;
-//        int onTargetCount = 0;
-//        float finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
-//        int proportional = fasterror * kp;
-////Temp Variable//
-//        int deltaTime = 0;
-//
-//                if (fasterror == 0)
-//                {
-//                    lastfastError = 0;
-//                }
-//                else{
-//                    lastfastError = fasterror;
-//                }
-//
-//                if (abs(fasterror) < integralfastActiveZone and fasterror != 0)
-//                {
-//                    totalfastError += fasterror;
-//                }
-//                else
-//                {
-//                    totalfastError = 0;
-//                }
-//
-//                finalfastAdjustment = (proportional + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
-//                currentfastFlywheelVoltage = currentfastFlywheelVoltage + finalfastAdjustment;
-//        pros::lcd::set_text(8, "Fast");
-//        pros::lcd::set_text(1, std::to_string(fasterror));
-//        pros::lcd::set_text(2, std::to_string(totalfastError));
-//
-////                Flywheel1.move(currentfastFlywheelVoltage);
-//                Flywheel1.move_velocity(fast_target);
-////                pros::delay(10);
-////        std::ofstream Card;
-////        Card.open("/usd/TuningValues.txt", std::ios_base::app);
-////        Card << fasterror << "\t" << finalfastAdjustment << "\t" << currentfastFlywheelVoltage <<std::endl;
-////        Card.close();
-//            }
-//
-//    else if (run_flywheel and not run_fast) {
-//        //Constants//
-////        float kp = 0.4;
-////        float ki = 0.03;
-////        float kd = 0.05;
-//////PID Variables Here//
-////        double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
-////        double currentVelocity = doublecurrentVelocity/2;
-////        int error = low_target - currentVelocity;
-////        int lastError = 0;
-////        int totalError = 0;
-////        int integralActiveZone = 70;
-////        int currentFlywheelVoltage = 20;
-////        int onTargetCount = 0;
-////        float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
-////        pros::lcd::set_text(8, "Slow");
-//////Temp Variable//
-////        int deltaTime = 0;
-////
-////        if (error == 0)
-////        {
-////            lastError = 0;
-////        }
-////        else{
-////            lastError = error;
-////        }
-////
-////        if (abs(error) < integralActiveZone and error != 0)
-////        {
-////            totalError += error;
-////        }
-////        else
-////        {
-////            totalError = 0;
-////        }
-////
-////        finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
-////        currentFlywheelVoltage = currentFlywheelVoltage + finalAdjustment;
-////
-////        pros::lcd::set_text(1, std::to_string(error));
-////        pros::lcd::set_text(2, std::to_string(totalerror));
-////
-////        Flywheel1.move(currentFlywheelVoltage);
-////        Flywheel2.move(currentFlywheelVoltage);
-////        pros::delay(5);
-////        std::ofstream Card;
-////        Card.open("/usd/TuningValues.txt", std::ios_base::app);
-////        Card << error << "\t" << finalAdjustment << "\t" << currentFlywheelVoltage <<std::endl;
-////        Card.close();
-//Flywheel1.move_velocity(low_target);
+   if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)){
+       targetrpm = targetrpm + 50;
+       pros::delay(100);
+   }
+
+   if (Master.get_digital (pros::E_CONTROLLER_DIGITAL_DOWN)){
+       targetrpm = targetrpm - 50;
+       pros::delay(100);
+   }
+
+   if (flypower > 127) {
+       flypower = 127;
+       pros::delay(50);
+   }
+
+   if (flypower < 0) {
+       flypower = 0;
+       pros::delay(50);
+   }
+
+   if (run_flywheel and run_fast ) {
+       //Constants//
+       float kp = 0.85;
+       float ki = 0.01;
+       float kd = 0.05;
+//PID Variables Here//
+       double doublecurrentVelocity = Flywheel1.get_actual_velocity();
+       double currentVelocity = doublecurrentVelocity;
+       int fasterror = fast_target - currentVelocity;
+       int lastfastError = 0;
+       int totalfastError = 0;
+       int integralfastActiveZone = 50;
+       int currentfastFlywheelVoltage = 60;
+       int onTargetCount = 0;
+       float finalfastAdjustment = ((fasterror * kp) + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
+       int proportional = fasterror * kp;
+//Temp Variable//
+       int deltaTime = 0;
+
+               if (fasterror == 0)
+               {
+                   lastfastError = 0;
+               }
+               else{
+                   lastfastError = fasterror;
+               }
+
+               if (abs(fasterror) < integralfastActiveZone and fasterror != 0)
+               {
+                   totalfastError += fasterror;
+               }
+               else
+               {
+                   totalfastError = 0;
+               }
+
+               finalfastAdjustment = (proportional + (totalfastError * ki) + ((fasterror - lastfastError) * kd));
+               currentfastFlywheelVoltage = currentfastFlywheelVoltage + finalfastAdjustment;
+       pros::lcd::set_text(8, "Fast");
+       pros::lcd::set_text(1, std::to_string(fasterror));
+       pros::lcd::set_text(2, std::to_string(totalfastError));
+
+//                Flywheel1.move(currentfastFlywheelVoltage);
+               Flywheel1.move_velocity(fast_target);
+//                pros::delay(10);
+//        std::ofstream Card;
+//        Card.open("/usd/TuningValues.txt", std::ios_base::app);
+//        Card << fasterror << "\t" << finalfastAdjustment << "\t" << currentfastFlywheelVoltage <<std::endl;
+//        Card.close();
+           }
+
+   else if (run_flywheel and not run_fast) {
+       Constants//
+       float kp = 0.4;
+       float ki = 0.03;
+       float kd = 0.05;
+//PID Variables Here//
+       double doublecurrentVelocity = Flywheel1.get_actual_velocity() + Flywheel2.get_actual_velocity();
+       double currentVelocity = doublecurrentVelocity/2;
+       int error = low_target - currentVelocity;
+       int lastError = 0;
+       int totalError = 0;
+       int integralActiveZone = 70;
+       int currentFlywheelVoltage = 20;
+       int onTargetCount = 0;
+       float finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+       pros::lcd::set_text(8, "Slow");
+//Temp Variable//
+       int deltaTime = 0;
+
+       if (error == 0)
+       {
+           lastError = 0;
+       }
+       else{
+           lastError = error;
+       }
+
+       if (abs(error) < integralActiveZone and error != 0)
+       {
+           totalError += error;
+       }
+       else
+       {
+           totalError = 0;
+       }
+
+       finalAdjustment = ((error * kp) + (totalError * ki) + ((error - lastError) * kd));
+       currentFlywheelVoltage = currentFlywheelVoltage + finalAdjustment;
+
+       pros::lcd::set_text(1, std::to_string(error));
+       pros::lcd::set_text(2, std::to_string(totalerror));
+
+       Flywheel1.move(currentFlywheelVoltage);
+       Flywheel2.move(currentFlywheelVoltage);
+       pros::delay(5);
+       std::ofstream Card;
+       Card.open("/usd/TuningValues.txt", std::ios_base::app);
+       Card << error << "\t" << finalAdjustment << "\t" << currentFlywheelVoltage <<std::endl;
+       Card.close();
+// Flywheel1.move_velocity(low_target);
 //        if (Master.get_digital(pros::E_CONTROLLER_DIGITAL_A)){
 //            Flywheel1.move_velocity(12000);
 //        }
